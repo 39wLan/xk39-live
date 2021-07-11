@@ -1,37 +1,47 @@
 # xk39-live
 
-#### 介绍
-个人日常记录总括
+### 介绍
 
-#### 软件架构
-软件架构说明
+个人日常记录、问题解决方案总括
 
+### 日常
 
-#### 安装教程
+~~指令重排规则~~
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+> happens-before
 
-#### 使用说明
+手写AOP
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+Java8对CAS自旋开销的优化
 
-#### 参与贡献
+~~Git使用SSH代理~~
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+> ~/.ssh/config文件里写入以下内容
+>
+> ```
+> # 这里的 -a none 是 NO-AUTH 模式，参见 https://bitbucket.org/gotoh/connect/wiki/Home 中的 More detail 一节
+> ProxyCommand connect -S 127.0.0.1:1080 -a none %h %p
+> ```
+>
+> ~/.ssh/config文件配置方式自行百度
+>
+> 详情链接: [Windows 下 Git SSH 连接方式配置 Socks 代理_XSemperFI的博客-CSDN博客](https://blog.csdn.net/XSemperFI/article/details/106818669)
+>
+> [Git HTTP+SSH 代理配置 – 晨鹤小站 (chenhe.cc)](http://www.chenhe.cc/p/406)
 
+~~Git多个远程仓库同步~~
 
-#### 特技
+> ```
+> # 添加关联的远程仓库
+> # 使用此命令时请将各仓库的私钥配置好
+> git remote set-url --add origin git@gitee.com:temp/temp.git
+> ```
+>
+> ```
+> # 查看现有远程库
+> git remote --verbose
+> ```
+>
+> 详情链接：[如何同步多个 git 远程仓库 - taadis - 博客园 (cnblogs.com)](https://www.cnblogs.com/taadis/p/12170953.html)
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+SaaS-HRM项目技术整理
