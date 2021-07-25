@@ -76,3 +76,11 @@ public int[] getNext(String s){
 
 > [【宫水三叶】二分 + 倍增乘法解法（含模板） - 两数相除 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/divide-two-integers/solution/shua-chuan-lc-er-fen-bei-zeng-cheng-fa-j-m73b/)
 
+##### 欧拉快速幂
+
+> [372. 超级次方 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/super-pow/)
+>
+> [降幂公式+快速幂（时间复杂度干掉100%） - 超级次方 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/super-pow/solution/jiang-mi-gong-shi-kuai-su-mi-shi-jian-fu-za-du-gan/)
+>
+> [超级次方 - 超级次方 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/super-pow/solution/chao-ji-ci-fang-by-wisemove-2/)
+

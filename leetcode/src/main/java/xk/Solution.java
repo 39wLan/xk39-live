@@ -12,14 +12,54 @@ import static xk.leetCodeUtils.quickMulti;
 
 class Solution {
     
-    public static void main(String[] args) {
-    
-    }
-    
     @Test
     public void myTest(){
         System.out.println(divide(-2147483648,2));
         
+    }
+    
+    
+    public int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
+        int s=minutesToTest/minutesToDie+1;
+        return (int)Math.ceil(Math.log(buckets)/Math.log(s));
+    }
+    
+    public int countNumbersWithUniqueDigits(int n) {
+        if(n==0){
+            return 1;
+        }
+        if(n==1){
+            return 10;
+        }
+        int[] res=new int[n+1];
+        res[0]=1;
+        res[1]=10;
+        for(int i=2;i<=n;i++){
+            res[i]=9;
+            for(int j=1;j<i&&j<11;j++){
+                res[i]*=(10-j);
+            }
+            res[i]+=res[i-1];
+        }
+        return res[n];
+    }
+    
+    public double myPowHelp(double x,long N){
+        double ans=1.0;
+        double c=x;
+        while (N>0){
+            if((N&1)==1){
+                ans*=c;
+            }
+            c*=c;
+            N>>=1;
+        }
+        return ans;
+    }
+    
+    public double myPow(double x, int n) {
+        long N=n;
+        return N>=0?myPowHelp(x,N):1.0/myPowHelp(x,-N);
     }
     
     public int divideHelp(int a,int b){
