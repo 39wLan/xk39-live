@@ -8,7 +8,7 @@ public class leetCodeUtils {
      * 二分查找
      *
      **/
-    public int binSearch(int target, int[] arr) {
+    public static int binSearch(int target, int[] arr) {
         int low = 0;
         int high = arr.length - 1;
         int mid = 0;
@@ -37,7 +37,7 @@ public class leetCodeUtils {
     /**
      * lcm 求最小公倍数
      **/
-    public int gcd(int a,int b) {
+    public static int gcd(int a,int b) {
         if (b == 0){
             return a;
         } else{
@@ -45,7 +45,7 @@ public class leetCodeUtils {
         }
     }
     
-    public int lcm(int a, int b) {
+    public static int lcm(int a, int b) {
         if (a != 0 || b != 0) {
             return a * b / gcd(a, b);
         } else {
@@ -60,7 +60,7 @@ public class leetCodeUtils {
     * */
     PriorityQueue<Integer> minPQ=new PriorityQueue<>();
     PriorityQueue<Integer> maxPQ=new PriorityQueue<>((a,b)->(a-b));
-    public void pushPQ(int len,int num,PriorityQueue<Integer> pq){
+    public static void pushPQ(int len,int num,PriorityQueue<Integer> pq){
         pq.add(num);
         while (pq.size()>len){
             pq.poll();
@@ -70,14 +70,14 @@ public class leetCodeUtils {
     /**
      * max 求最大值
      **/
-    public int getMax(int... nums){
+    public static int getMax(int... nums){
         return IntStream.of(nums).max().getAsInt();
     }
     
     /**
      * min 求最小值
      **/
-    public int getMin(int... nums){
+    public static int getMin(int... nums){
         return IntStream.of(nums).min().getAsInt();
     }
     
@@ -87,7 +87,7 @@ public class leetCodeUtils {
      * getNext
      * next数组
      */
-    public int[] getNext(String s){
+    public static int[] getNext(String s){
         char[] chars=s.toCharArray();
         int[] next=new int[chars.length];
         next[0]=-1;
@@ -109,6 +109,24 @@ public class leetCodeUtils {
         }
         return next;
     }
+    
+    
+    /**
+     * 快速乘法
+     * quickMulti
+     */
+    public static long quickMulti(long a,long k){
+        long ans=0;
+        while (k>0){
+            if((k&1)==1){
+                ans+=a;
+            }
+            k>>=1;
+            a+=a;
+        }
+        return ans;
+    }
+    
 }
 
 

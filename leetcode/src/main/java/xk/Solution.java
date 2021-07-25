@@ -1,18 +1,59 @@
 package xk;
 
 
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
-import java.util.*;
+import static xk.leetCodeUtils.quickMulti;
 
 class Solution {
-
+    
+    public static void main(String[] args) {
+    
+    }
+    
     @Test
     public void myTest(){
-        String s1="1234123412312341234";
-        System.out.println(Arrays.toString(getNext(s1)));
+        System.out.println(divide(-2147483648,2));
+        
     }
+    
+    public int divideHelp(int a,int b){
+        if(a>b){
+            return 0;
+        }
+        int res=1;
+        int step=b;
+        while (a-step<=step){
+            step+=step;
+            res+=res;
+        }
+        return res+divideHelp(a-step,b);
+    }
+    
+    public int divide(int dividend, int divisor) {
+        if(dividend==Integer.MIN_VALUE&&divisor==-1){
+            return Integer.MAX_VALUE;
+        }
+        if(divisor==1){
+            return dividend;
+        }
+        boolean isNega=false;
+        if(dividend>0){
+            isNega=!isNega;
+            dividend=-dividend;
+        }
+        if(divisor>0){
+            isNega=!isNega;
+            divisor=-divisor;
+        }
+        return isNega?-divideHelp(dividend,divisor):divideHelp(dividend,divisor);
+    }
+    
     
     public List<Integer> findSubstring(String s, String[] words) {
         List<Integer> res = new ArrayList<>();
