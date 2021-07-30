@@ -84,3 +84,30 @@ public int[] getNext(String s){
 >
 > [超级次方 - 超级次方 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/super-pow/solution/chao-ji-ci-fang-by-wisemove-2/)
 
+```
+
+a表：500条数据，其中‘time’=2077的有400条
+b表：4000条数据，其中‘time’=2077的有100条
+
+
+in:
+for(a.b:as*bs)
+
+exits:
+for{a:as
+   if(a==target){
+   		for(b:bs)
+   }
+}
+
+
+
+
+
+
+```
+
+##### Manacher 算法
+
+[最长回文子串 - 最长回文子串 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zui-chang-hui-wen-zi-chuan-by-leetcode-solution/)
+

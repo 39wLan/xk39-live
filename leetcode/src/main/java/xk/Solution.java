@@ -18,6 +18,61 @@ class Solution {
         
     }
     
+    public String multiply(String num1, String num2) {
+        if(num1.equals("0")||num2.equals("0")){
+            return "0";
+        }
+        int n1=num1.length(),n2=num2.length();
+        int[] arr=new int[n1+n2];
+        for(int i=n1-1;i>=0;i--){
+            int x=num1.charAt(i)-'0';
+            for(int j=n2-1;j>=0;j--){
+                int y=num2.charAt(j)-'0';
+                arr[i+j+1]+=x*y;
+            }
+        }
+        for(int i=arr.length-1;i>0;i--){
+            arr[i-1]+=arr[i]/10;
+            arr[i]%=10;
+        }
+        int index=arr[0]==0?1:0;
+        StringBuffer ans=new StringBuffer();
+        while(index<arr.length){
+            ans.append(arr[index]);
+            index++;
+        }
+        return ans.toString();
+    }
+    
+    public String longestPalindrome(String s) {
+        char[] charArray = s.toCharArray();
+        int len=charArray.length;
+        int left=0;
+        int maxLen=1;
+        boolean[][] dp=new boolean[len][len];
+        for (int i = 0; i < len; i++) {
+            dp[i][i]=true;
+        }
+        for (int i = len-2; i >= 0; i--) {
+            int leftTmp=i;
+            int maxLenTmp=1;
+            if(charArray[i]==charArray[i+1]){
+                dp[i][i+1]=true;
+                maxLenTmp=2;
+            }
+            for (int j = i+2; j < len; j++) {
+                if(charArray[i]==charArray[j]&&dp[i+1][j-1]){
+                    dp[i][j]=true;
+                    maxLenTmp=j-i+1;
+                }
+            }
+            if(maxLenTmp>maxLen){
+                left=leftTmp;
+                maxLen=maxLenTmp;
+            }
+        }
+        return s.substring(left,left+maxLen);
+    }
     
     public int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
         int s=minutesToTest/minutesToDie+1;
