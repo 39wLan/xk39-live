@@ -111,3 +111,5 @@ for{a:as
 
 [最长回文子串 - 最长回文子串 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zui-chang-hui-wen-zi-chuan-by-leetcode-solution/)
 
+##### Rabin-Karp 算法
+

@@ -18,6 +18,44 @@ class Solution {
         
     }
     
+    
+    public String shortestPalindrome(String s) {
+        int n=s.length();
+        int base=131;
+        int mod=100000007;
+        int left=0,right=0,mul=1;
+        int best=-1;
+        for(int i=0;i<n;i++){
+            left=(int)(((long)left*base+s.charAt(i))%mod);
+            right=(int)((right+(long)mul*s.charAt(i))%mod);
+            if(left==right){
+                best=i;
+            }
+            mul=(int)((long)mul*base%mod);
+        }
+        String add=(best==n-1?"":s.substring(best+1));
+        StringBuffer ans=new StringBuffer(add).reverse();
+        ans.append(s);
+        return ans.toString();
+    }
+    
+    public int countSubstrings(String s) {
+        if(s==null||s.length()==0){
+            return 0;
+        }
+        int n=s.length();
+        int ans=0;
+        for (int i = 0; i < 2*n-1; i++) {
+            int l=i/2,r=i/2+i%2;
+            while (l>=0&&r<n&&s.charAt(l)==s.charAt(r)){
+                ans++;
+                l--;
+                r++;
+            }
+        }
+        return ans;
+    }
+    
     public String multiply(String num1, String num2) {
         if(num1.equals("0")||num2.equals("0")){
             return "0";
