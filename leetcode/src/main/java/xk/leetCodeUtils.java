@@ -127,6 +127,25 @@ public class leetCodeUtils {
         return ans;
     }
     
+    /**
+     * swap
+     * reverse
+     */
+    static public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    
+    static public void reverse(int[] nums, int start) {
+        int left = start, right = nums.length - 1;
+        while (left < right) {
+            swap(nums, left, right);
+            left++;
+            right--;
+        }
+    }
+    
 }
 
 
