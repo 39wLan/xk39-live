@@ -16,7 +16,60 @@ class Solution {
         
     }
     
+    public int subarraySum(int[] nums, int k) {
+        int ans=0;
+        int sum=0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0,1);
+        for(int num:nums){
+            sum+=num;
+            ans+=map.getOrDefault(sum-k,0);
+            map.put(sum,map.getOrDefault(sum,0)+1);
+        }
+        return ans;
+    }
     
+    public int findMaxLength(int[] nums) {
+        int ans=0;
+        int n=nums.length;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int sum=0;
+        map.put(sum,-1);
+        for (int i = 0; i < n; i++) {
+            if(nums[i]==0){
+                sum--;
+            }else {
+                sum++;
+            }
+            if(map.containsKey(sum)){
+                ans=Math.max(ans,i- map.get(sum));
+            }else {
+                map.put(sum,i);
+            }
+        }
+        return ans;
+    }
+    
+    public boolean checkSubarraySum(int[] nums, int k) {
+        if(nums.length<2){
+            return false;
+        }
+        int n=nums.length;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0,-1);
+        int sum=0;
+        for (int i = 0; i < n; i++) {
+            sum=(sum+nums[i])%k;
+            if(map.containsKey(sum)){
+                if(i-map.get(sum)>1){
+                    return true;
+                }
+            }else {
+                map.put(sum,i);
+            }
+        }
+        return false;
+    }
     
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
         int n=nums.length;
