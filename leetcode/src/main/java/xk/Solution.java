@@ -16,6 +16,66 @@ class Solution {
         
     }
     
+    class NumArray {
+        
+        int[] tree;
+        int n;
+        public NumArray(int[] nums) {
+            if(nums.length>0){
+                n=nums.length;
+                tree=new int[n*2];
+                buildTree(nums);
+            }
+        }
+        
+        public void buildTree(int[] nums){
+            for (int i = n,j=0; i < 2*n; i++,j++) {
+                tree[i]=nums[j];
+            }
+            for(int i=n-1;i>0;i--){
+                tree[i]=tree[i*2]+tree[i*2+1];
+            }
+        }
+        
+        public void update(int index, int val) {
+            index+=n;
+            tree[index]=val;
+            while(index>0){
+                int left=index;
+                int right=index;
+                if((index&1)==0){
+                    right=index+1;
+                }else {
+                    left=index-1;
+                }
+                tree[index/2]=tree[left]+tree[right];
+                index>>=1;
+            }
+        }
+        
+        public int sumRange(int left, int right) {
+            left+=n;
+            right+=n;
+            int sum=0;
+            while(left<=right){
+                if((left&1)==1){
+                    sum+=tree[left];
+                    left++;
+                }
+                if((right&1)==0){
+                    sum+=tree[right];
+                    right--;
+                }
+                left>>=1;
+                right>>=1;
+            }
+            return sum;
+        }
+    }
+
+    
+    
+    
     /**
      * 核心: Floyd判圈算法,前进的同时更新起点star
      *      fast==slow时便确认进入圈中，判断圈是否合规即可

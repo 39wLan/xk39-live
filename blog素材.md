@@ -123,3 +123,7 @@ for{a:as
 
 [算法-floyd判环(圈)算法_q2nAmor-CSDN博客_floyd 判圈算法](https://blog.csdn.net/u012534831/article/details/74231581)
 
+##### 线段树
+
+[区域和检索 - 数组可修改 - 区域和检索 - 数组可修改 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/range-sum-query-mutable/solution/qu-yu-he-jian-suo-shu-zu-ke-xiu-gai-by-leetcode/)
+
