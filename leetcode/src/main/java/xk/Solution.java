@@ -16,6 +16,102 @@ class Solution {
         
     }
     
+    /**
+     * 核心: Floyd判圈算法,前进的同时更新起点star
+     *      fast==slow时便确认进入圈中，判断圈是否合规即可
+     *
+     * f1():返回下一个到达的坐标
+     * flag:
+     *      true:当前循环暂时符合条件;
+     *      false:当前循环不符合条件
+     * star: 空间O(1)的关键，下一次搜寻的起点坐标
+     *      if(slow==star+1||fast==star+1) star++;
+     * left: 剪枝用的
+     */
+    public boolean circularArrayLoop(int[] nums) {
+        if(nums.length<2||(nums.length==2&&nums[0]*nums[1]<0)){
+            return false;
+        }
+        int star=0;
+        int k=nums.length;
+        while (star<k){
+            int left=star;
+            int slow=star,fast=star;
+            star++;
+            boolean flag=true;
+            do{
+                slow=f1(slow,nums[slow],k);
+                star+=slow==star?1:0;
+                fast=f1(fast,nums[fast],k);
+                star+=fast==star?1:0;
+                fast=f1(fast,nums[fast],k);
+                star+=fast==star?1:0;
+                if(slow<left||fast<left){
+                    flag=false;
+                    break;
+                }
+            }while (slow!=fast);
+            if(!flag){
+                continue;
+            }
+            int t=slow;
+            fast=f1(slow,nums[slow],k);
+            if(t==fast){
+                continue;
+            }
+            do {
+                fast=f1(slow,nums[slow],k);
+                if(nums[slow]*nums[fast]<0){
+                    flag=false;
+                    break;
+                }
+                slow=fast;
+            } while (t!=slow);
+            if(flag){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public int f1(int index,int num,int k){
+        index=(index+num%k+k)%k;
+        return index;
+    }
+    
+    public int findDuplicate(int[] nums) {
+        int slow=0,fast=0;
+        do{
+            slow=nums[slow];
+            fast=nums[nums[fast]];
+        }while (slow!=fast);
+        slow=0;
+        while (slow!=fast){
+            slow=nums[slow];
+            fast=nums[fast];
+        }
+        return slow;
+    }
+    
+    public int triangleNumber(int[] nums) {
+        if(nums.length<3){
+            return 0;
+        }
+        int ans=0;
+        Arrays.sort(nums);
+        int n=nums.length;
+        for (int i = 1; i < n-1; i++) {
+            int z=i+1;
+            for (int j = 0; j < i; j++) {
+                while (z<n&&nums[i]+nums[j]>nums[z]){
+                    z++;
+                }
+                ans+=z-i-1;
+            }
+        }
+        return ans;
+    }
+    
     public int subarraySum(int[] nums, int k) {
         int ans=0;
         int sum=0;

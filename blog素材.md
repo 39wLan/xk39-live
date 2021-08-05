@@ -113,3 +113,13 @@ for{a:as
 
 ##### Rabin-Karp 算法
 
+##### 妙啊
+
+[寻找重复数 - 寻找重复数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/find-the-duplicate-number/solution/xun-zhao-zhong-fu-shu-by-leetcode-solution/)
+
+##### Floyd判圈算法
+
+[寻找重复数 - 寻找重复数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/find-the-duplicate-number/solution/xun-zhao-zhong-fu-shu-by-leetcode-solution/)
+
+[算法-floyd判环(圈)算法_q2nAmor-CSDN博客_floyd 判圈算法](https://blog.csdn.net/u012534831/article/details/74231581)
+
