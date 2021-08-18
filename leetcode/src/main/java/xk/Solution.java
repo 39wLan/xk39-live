@@ -5,15 +5,244 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static xk.leetCodeUtils.quickMulti;
-import static xk.leetCodeUtils.reverse;
-
 class Solution {
     
     @Test
     public void myTest(){
-        System.out.println(divide(-2147483648,2));
+    
+        System.out.println(true?false:true==true?false:true);
+    
+    }
+    
+    char[] minMutationChar=new char[]{'A','C','G','T'};
+    
+    public int minMutation(String start, String end, String[] bank) {
+    
+    }
+    
+    public int minMutationHelp(){}
+    
+
+    
+    public int unhappyFriends(int n, int[][] preferences, int[][] pairs) {
+        int ans=0;
+        int[][] arr=new int[n][n];
+        int[] pair=new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n-1; j++) {
+                arr[i][preferences[i][j]]=j;
+            }
+        }
+        for (int[] p:pairs){
+            int p0=p[0];
+            int p1=p[1];
+            pair[p0]=p1;
+            pair[p1]=p0;
+        }
+        for (int x = 0; x < n; x++) {
+            int y=pair[x];
+            int yArr=arr[x][y];
+            for (int i = 0; i < yArr; i++) {
+                int u=preferences[x][i];
+                int v=pair[u];
+                if(arr[u][x]<arr[u][v]){
+                    ans++;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+    
+    
+    
+    boolean[][] pacificAtlantiOne;
+    boolean[][] pacificAtlantiTwo;
+    int[] pacificAtlanticList0=new int[]{1,-1,0,0};
+    int[] pacificAtlanticList1=new int[]{0,0,1,-1};
+    public void pacificAtlanticDfs(boolean[][] dp,int[][] heights,int x,int y){
+        for (int i = 0; i < 4; i++) {
+            int xx=x+pacificAtlanticList0[i];
+            int yy=y+pacificAtlanticList1[i];
+            if(xx<0||yy<0||xx>=heights.length||yy>=heights[0].length){
+                continue;
+            }
+            if(dp[xx][yy]||heights[xx][yy]<heights[x][y]){
+                continue;
+            }
+            dp[xx][yy]=true;
+            pacificAtlanticDfs(dp, heights, xx, yy);
+        }
+    }
+    
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        List<List<Integer>> ans=new LinkedList<List<Integer>>();
+        if(heights==null||heights.length==0||heights[0].length==0){
+            return ans;
+        }
+        int r=heights.length;
+        int c=heights[0].length;
+        pacificAtlantiOne=new boolean[r][c];
+        pacificAtlantiTwo=new boolean[r][c];
+        for (int i = 0; i < r; i++) {
+            pacificAtlantiOne[i][0]=true;
+            pacificAtlantiTwo[i][c-1]=true;
+        }
+        for (int i = 0; i < c; i++) {
+            pacificAtlantiOne[0][i]=true;
+            pacificAtlantiTwo[r-1][i]=true;
+        }
+        for (int i = 0; i < r; i++) {
+            pacificAtlanticDfs(pacificAtlantiOne,heights,i,0);
+            pacificAtlanticDfs(pacificAtlantiTwo,heights,i,c-1);
+        }
+        for (int i = 0; i < c; i++) {
+            pacificAtlanticDfs(pacificAtlantiOne,heights,0,i);
+            pacificAtlanticDfs(pacificAtlantiTwo,heights,r-1,i);
+        }
+    
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if(pacificAtlantiOne[i][j]&&pacificAtlantiTwo[i][j]){
+                    ans.add(Arrays.asList(i,j));
+                }
+            }
+        }
+        return ans;
+    }
+    
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        int equationsSize=equations.size();
+        UnionFind unionFind = new UnionFind(2 * equationsSize);
+        Map<String, Integer> hashMap = new HashMap<>();
+        int id=0;
+        for (int i = 0; i < equationsSize; i++) {
+            List<String> equation = equations.get(i);
+            String var1 = equation.get(0);
+            String var2 = equation.get(1);
+            
+            if(!hashMap.containsKey(var1)){
+                hashMap.put(var1,id);
+                id++;
+            }
+            if(!hashMap.containsKey(var2)){
+                hashMap.put(var2,id);
+                id++;
+            }
+            unionFind.union(hashMap.get(var1),hashMap.get(var2),values[i]);
+        }
+    
+        int queriesSize = queries.size();
+        double[] res = new double[queriesSize];
+        for (int i = 0; i < queriesSize; i++) {
+            String var1 = queries.get(i).get(0);
+            String var2 = queries.get(i).get(1);
+    
+            Integer id1 = hashMap.get(var1);
+            Integer id2 = hashMap.get(var2);
+            
+            if(id1==null||id2==null){
+                res[i]=-1.0d;
+            }else {
+                res[i]=unionFind.isConnected(id1,id2);
+            }
+        }
+        return res;
+    }
+    
+    public class UnionFind{
         
+        public int[] parent;
+        public double[] weight;
+        
+        public UnionFind(int n){
+            this.parent=new int[n];
+            this.weight=new double[n];
+            for (int i = 0; i < n; i++) {
+                parent[i]=i;
+                weight[i]=1.0d;
+            }
+        }
+        
+        public void union(int x,int y,double value){
+            int rootX=find(x);
+            int rootY=find(y);
+            if(rootX==rootY){
+                return;
+            }
+            parent[rootX]=rootY;
+            weight[rootX]=weight[y]*value/weight[x];
+        }
+        
+        public int find(int x){
+            if(x!=parent[x]){
+                int origin=parent[x];
+                parent[x]=find(parent[x]);
+                weight[x]*=weight[origin];
+            }
+            return parent[x];
+        }
+        
+        public double isConnected(int x,int y){
+            int rootX=find(x);
+            int rootY=find(y);
+            if(rootX==rootY){
+                return weight[x]/weight[y];
+            }else {
+                return -1.0d;
+            }
+        }
+        
+    }
+    
+    Map<String, PriorityQueue<String>> findItineraryMap = new HashMap<>();
+    List<String> findItineraryRes =new LinkedList<String>();
+    public List<String> findItinerary(List<List<String>> tickets) {
+        for (List<String> tic:tickets){
+            String from= tic.get(0);
+            String to= tic.get(1);
+            if(!findItineraryMap.containsKey(from)){
+                findItineraryMap.put(from,new PriorityQueue<String>());
+            }
+            findItineraryMap.get(from).offer(to);
+        }
+        findItineraryHelp("JFK");
+        Collections.reverse(findItineraryRes);
+        return findItineraryRes;
+    }
+    public void findItineraryHelp(String from){
+        while (findItineraryMap.containsKey(from)&& findItineraryMap.get(from).size()>0){
+            String to= findItineraryMap.get(from).poll();
+            findItineraryHelp(to);
+        }
+        findItineraryRes.add(from);
+    }
+    
+    public List<Integer> diffWaysToCompute(String expression) {
+        List<Integer> res=new LinkedList<>();
+        for (int i = 0; i < expression.length(); i++) {
+            char tmp=expression.charAt(i);
+            if(tmp=='+'||tmp=='-'||tmp=='*'){
+                List<Integer> left=diffWaysToCompute(expression.substring(0,i));
+                List<Integer> right=diffWaysToCompute(expression.substring(i+1));
+                for (int l: left) {
+                    for (int r: right) {
+                        if(tmp=='+'){
+                            res.add(l+r);
+                        }else if(tmp=='-'){
+                            res.add(l-r);
+                        }else if(tmp=='*'){
+                            res.add(l*r);
+                        }
+                    }
+                }
+            }
+        }
+        if(res.size()==0){
+            res.add(Integer.valueOf(expression));
+            return res;
+        }
+        return res;
     }
     
     class NumArray {

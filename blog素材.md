@@ -127,3 +127,13 @@ for{a:as
 
 [区域和检索 - 数组可修改 - 区域和检索 - 数组可修改 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/range-sum-query-mutable/solution/qu-yu-he-jian-suo-shu-zu-ke-xiu-gai-by-leetcode/)
 
+##### 欧拉图
+
+[重新安排行程 - 重新安排行程 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reconstruct-itinerary/solution/zhong-xin-an-pai-xing-cheng-by-leetcode-solution/)
+
+##### 并查集
+
+[🎦 399. 除法求值 - 除法求值 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/evaluate-division/solution/399-chu-fa-qiu-zhi-nan-du-zhong-deng-286-w45d/)
+
+![image-20210811171023920](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210811171023920.png)
+
