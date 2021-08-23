@@ -4,6 +4,7 @@ package xk;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 class Solution {
     
@@ -11,16 +12,154 @@ class Solution {
     public void myTest(){
     
         System.out.println(true?false:true==true?false:true);
-    
     }
     
-    char[] minMutationChar=new char[]{'A','C','G','T'};
+    int[] findCircleNumMap;
+    public int findCircleNum(int[][] isConnected) {
+        int len=isConnected.length;
+        findCircleNumMap=new int[len];
+        for (int i = 0; i < findCircleNumMap.length; i++) {
+            findCircleNumMap[i]=i;
+        }
+        for (int i = 0; i < isConnected.length; i++) {
+            for (int j = i+1; j < isConnected.length; j++) {
+                if(isConnected[i][j]==1){
+                    findCircleNumUnion(findCircleNumMap,i,j);
+                }
+            }
+        }
+        int ans=0;
+        for (int i = 0; i < findCircleNumMap.length; i++) {
+            if (i==findCircleNumMap[i]){
+                ans++;
+            }
+        }
+        return ans;
+    }
     
+    public void findCircleNumUnion(int[] parent,int i,int j){
+        parent[findCircleNumFind(parent,i)]=findCircleNumFind(parent,j);
+    }
+    
+    public int findCircleNumFind(int[] parent,int i){
+        if (parent[i]!=i){
+            parent[i]=findCircleNumFind(parent,parent[i]);
+        }
+        return parent[i];
+    }
+    
+    
+    
+    
+    
+    public int[][] updateMatrix(int[][] matrix) {
+        int m=matrix.length;
+        int n=matrix[0].length;
+        int temp=10001;
+        int[][] ans=new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(matrix[i][j]!=0){
+                    ans[i][j]=temp;
+                }
+            }
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(i>0){
+                    ans[i][j]=Math.min(ans[i][j],ans[i-1][j]+1);
+                }
+                if(j>0){
+                    ans[i][j]=Math.min(ans[i][j],ans[i][j-1]+1);
+                }
+            }
+        }
+        for (int i = m-1; i >=0; i--) {
+            for (int j = n-1; j >=0; j--) {
+                if(i<m-1){
+                    ans[i][j]=Math.min(ans[i][j],ans[i+1][j]+1);
+                }
+                if(j<n-1){
+                    ans[i][j]=Math.min(ans[i][j],ans[i][j+1]+1);
+                }
+            }
+        }
+        return ans;
+    }
+    
+    
+    List<Integer> findSubsequencesTemp=new ArrayList<>();
+    List<List<Integer>> findSubsequencesAns=new ArrayList<>();
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        findSubsequencesDfs(0,Integer.MIN_VALUE,nums);
+        return findSubsequencesAns;
+    }
+    
+    public void findSubsequencesDfs(int cur,int last,int[] nums){
+        if(cur==nums.length){
+            if(findSubsequencesTemp.size()>=2){
+                findSubsequencesAns.add(new ArrayList<Integer>(findSubsequencesTemp));
+            }
+            return;
+        }
+        if(nums[cur]>=last){
+            findSubsequencesTemp.add(nums[cur]);
+            findSubsequencesDfs(cur+1,nums[cur],nums);
+            findSubsequencesTemp.remove(findSubsequencesTemp.size()-1);
+        }
+        if(nums[cur]!=last){
+            findSubsequencesDfs(cur+1,last,nums);
+        }
+    }
+    
+    
+    public String validIPAddress(String IP) {
+        String v4 = "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])";
+        Pattern IPv4 = Pattern.compile("^(" + v4 + "\\.){3}" + v4 + "$");
+        String v6 = "([0-9a-fA-F]{1,4})";
+        Pattern IPv6 = Pattern.compile("^(" + v6 + "\\:){7}" + v6 + "$");
+        if(IP.contains(".")){
+            return IPv4.matcher(IP).matches()?"IPv4":"Neither";
+        }else if(IP.contains(":")){
+            return IPv6.matcher(IP).matches()?"IPv6":"Neither";
+        }
+        return "Neither";
+    }
+    
+    
+    int minMutationMin=Integer.MAX_VALUE;
     public int minMutation(String start, String end, String[] bank) {
-    
+        char[][] banks=new char[bank.length][8];
+        for (int i = 0; i < bank.length; i++) {
+            banks[i]=bank[i].toCharArray();
+        }
+        minMutationHelp(start.toCharArray(),end.toCharArray(),banks,0);
+        return minMutationMin==Integer.MAX_VALUE?-1:minMutationMin;
     }
     
-    public int minMutationHelp(){}
+    public void minMutationHelp(char[] start,char[] end,char[][] banks,int count){
+        if(Arrays.equals(start,end)){
+            minMutationMin=Math.min(count,minMutationMin);
+            return;
+        }
+        for (int i = 0; i < banks.length; i++) {
+            char[] temp=banks[i];
+            if(temp==null){
+                continue;
+            }
+            int diff=0;
+            for (int j = 0; j < start.length; j++) {
+                if(start[j]!=temp[j]){
+                    diff++;
+                }
+            }
+            if(diff==1){
+                banks[i]=null;
+                minMutationHelp(temp,end,banks,count+1);
+                banks[i]=temp;
+            }
+        }
+    }
     
 
     
