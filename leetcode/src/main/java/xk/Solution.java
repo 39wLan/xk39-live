@@ -10,9 +10,396 @@ class Solution {
     
     @Test
     public void myTest(){
-    
-        System.out.println(true?false:true==true?false:true);
+        System.out.println(getPermutation(3,3));
+        
     }
+    
+    
+    
+    class findNumberOfLISValue{
+        int length;
+        int count;
+        public findNumberOfLISValue(int length,int count){
+            this.length=length;
+            this.count=count;
+        }
+    }
+    
+    class findNumberOfLISNode{
+        int range_left,range_right;
+        findNumberOfLISNode left,right;
+        findNumberOfLISValue val;
+        public findNumberOfLISNode(int start,int end){
+            range_left=start;
+            range_right=end;
+            left=null;
+            right=null;
+            val=new findNumberOfLISValue(0,1);
+        }
+        
+        public int getRangMid(){
+            return range_left+(range_right-range_left)/2;
+        }
+        
+        public findNumberOfLISNode getLeft(){
+            if(left==null){
+                left=new findNumberOfLISNode(range_left,getRangMid());
+            }
+            return left;
+        }
+        
+        public findNumberOfLISNode getRight(){
+            if(right==null){
+                right=new findNumberOfLISNode(getRangMid()+1,range_right);
+            }
+            return right;
+        }
+    }
+    
+    public findNumberOfLISValue findNumberOfLISMerge(findNumberOfLISValue x
+            ,findNumberOfLISValue y){
+        if(x.length==y.length){
+            if(x.length==0){
+                return new findNumberOfLISValue(0,1);
+            }
+            return new findNumberOfLISValue(x.length,x.count+y.count);
+        }
+        return x.length>y.length?x:y;
+    }
+    
+    public void findNumberOfLISInsert(findNumberOfLISNode node,
+                                      int key,findNumberOfLISValue val){
+        if(node.range_left==node.range_right){
+            node.val=findNumberOfLISMerge(val,node.val);
+            return;
+        }else if(key<=node.getRangMid()){
+            findNumberOfLISInsert(node.getLeft(),key,val);
+        }else {
+            findNumberOfLISInsert(node.getRight(),key,val);
+        }
+        node.val=findNumberOfLISMerge(node.getLeft().val,node.getRight().val);
+    }
+    
+    public findNumberOfLISValue findNumberOfLISQuery(findNumberOfLISNode node,int key){
+        if(node.range_right<=key){
+            return node.val;
+        }else if(node.range_left>key){
+            return new findNumberOfLISValue(0,1);
+        }else {
+            return findNumberOfLISMerge(findNumberOfLISQuery(node.getLeft(),key),
+                    findNumberOfLISQuery(node.getRight(),key));
+        }
+    }
+    
+    public int findNumberOfLIS(int[] nums) {
+        if(nums.length==0){
+            return 0;
+        }
+        int min=nums[0],max=nums[0];
+        for (int num : nums) {
+            min=Math.min(min,num);
+            max=Math.max(max,num);
+        }
+        findNumberOfLISNode node = new findNumberOfLISNode(min, max);
+        for (int num : nums) {
+            findNumberOfLISValue value = findNumberOfLISQuery(node, num - 1);
+            findNumberOfLISInsert(node,num,
+                    new findNumberOfLISValue(value.length+1, value.count));
+        }
+        return node.val.count;
+    }
+    
+    public String getPermutation(int n, int k) {
+        StringBuffer ans = new StringBuffer();
+        boolean[] dp=new boolean[n];
+        if(n==1){
+            return ans.append(1).toString();
+        }
+        int[] count=new int[n];
+        count[0]=1;
+        for (int i = 1; i < n; i++) {
+            count[i]=i*count[i-1];
+        }
+        while (ans.length()<n){
+            int targetIndex=(k-1)/count[n-ans.length()-1];
+            k-=count[n-ans.length()-1]*targetIndex;
+            for (int left = 0,index=0; left <=targetIndex&&index<=n; index++) {
+                if (!dp[index]){
+                    if(left==targetIndex){
+                        dp[index]=true;
+                        ans.append(++index);
+                        break;
+                    }else {
+                        left++;
+                    }
+                }
+            }
+        }
+        return ans.toString();
+    }
+    
+
+    class FindMaximumXORTrie {
+        FindMaximumXORTrie left=null;
+        FindMaximumXORTrie right=null;
+    }
+    
+    FindMaximumXORTrie root;
+    
+    public int findMaximumXOR(int[] nums) {
+        root = new FindMaximumXORTrie();
+        int len = nums.length;
+        int x=0;
+        for (int i = 1; i < len; i++) {
+            findMaximumXORAdd(nums[i-1]);
+            x=Math.max(x,findMaximumXORCheck(nums[i]));
+        }
+        return x;
+    }
+    
+    public void findMaximumXORAdd(int num){
+        FindMaximumXORTrie cur=root;
+        for (int i = 30; i >=0 ; i--) {
+            int bit=(num>>i)&1;
+            if (bit==0){
+                if (cur.left==null){
+                    cur.left=new FindMaximumXORTrie();
+                }
+                cur=cur.left;
+            }else {
+                if(cur.right==null){
+                    cur.right=new FindMaximumXORTrie();
+                }
+                cur=cur.right;
+            }
+        }
+    }
+    
+    public int findMaximumXORCheck(int num){
+        FindMaximumXORTrie cur=root;
+        int x=0;
+        for (int i = 30; i >=0 ; i--) {
+            int bit=(num>>i)&1;
+            if(bit==0){
+                if(cur.right!=null){
+                    cur=cur.right;
+                    x=x*2+1;
+                }else {
+                    cur=cur.left;
+                    x=x*2;
+                }
+            }else {
+                if(cur.left!=null){
+                    cur=cur.left;
+                    x=x*2+1;
+                }else {
+                    cur=cur.right;
+                    x=x*2;
+                }
+            }
+        }
+        return x;
+    }
+    
+    public List<Integer> lexicalOrder(int n) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        lexicalOrderHelp(ans,1,n);
+        return ans;
+    }
+    public void lexicalOrderHelp(List ans,int n,int max){
+        if(n>max){
+            return;
+        }
+        ans.add(n);
+        lexicalOrderHelp(ans,n*10,max);
+        if(n%10!=9){
+            lexicalOrderHelp(ans,n+1,max);
+        }
+    }
+    
+    
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+
+        List<List<Integer>> ans = new ArrayList<>();
+        PriorityQueue<Integer[]> queue = new PriorityQueue<>(new Comparator<Integer[]>() {
+            @Override
+            public int compare(Integer[] o1, Integer[] o2) {
+                return o1[1]-o2[1];
+            }
+        });
+        int[] map=new int[nums1.length];
+        int index=0;
+        int maxSize=nums1.length*nums2.length;
+        for (int i = 0; i < k&&i<maxSize; i++) {
+            int cur=0;
+            if(index==nums1.length&&!queue.isEmpty()){
+                cur=queue.poll()[0];
+                ans.add(Arrays.asList(nums1[cur],nums2[map[cur]]));
+                map[cur]+=1;
+            }else if(queue.isEmpty()&&index<nums1.length){
+                cur=index;
+                ans.add(Arrays.asList(nums1[cur],nums2[map[cur]]));
+                map[cur]+=1;
+                if(index<nums1.length-1){
+                    index++;
+                }
+            } else if(!queue.isEmpty()){
+                if(queue.peek()[1]<nums1[index]+nums2[map[index]]){
+                    cur=queue.poll()[0];
+                    ans.add(Arrays.asList(nums1[cur],nums2[map[cur]]));
+                    map[cur]+=1;
+                }else {
+                    cur=index;
+                    ans.add(Arrays.asList(nums1[cur],nums2[map[cur]]));
+                    map[cur]+=1;
+                    index++;
+                }
+            }
+            if (cur<nums1.length&&map[cur]<nums2.length){
+                queue.offer(new Integer[]{cur,nums1[cur]+nums2[map[cur]]});
+            }
+        }
+
+        return ans;
+    }
+    
+    class Twitter {
+        private class Node {
+            // 哈希表存储关注人的 Id
+            Set<Integer> followee;
+            // 用链表存储 tweetId
+            LinkedList<Integer> tweet;
+            
+            Node() {
+                followee = new HashSet<Integer>();
+                tweet = new LinkedList<Integer>();
+            }
+        }
+        
+        // getNewsFeed 检索的推文的上限以及 tweetId 的时间戳
+        private int recentMax, time;
+        // tweetId 对应发送的时间
+        private Map<Integer, Integer> tweetTime;
+        // 每个用户存储的信息
+        private Map<Integer, Node> user;
+        
+        public Twitter() {
+            time = 0;
+            recentMax = 10;
+            tweetTime = new HashMap<Integer, Integer>();
+            user = new HashMap<Integer, Node>();
+        }
+        
+        // 初始化
+        public void init(int userId) {
+            user.put(userId, new Node());
+        }
+        
+        public void postTweet(int userId, int tweetId) {
+            if (!user.containsKey(userId)) {
+                init(userId);
+            }
+            // 达到限制，剔除链表末尾元素
+            if (user.get(userId).tweet.size() == recentMax) {
+                user.get(userId).tweet.remove(recentMax - 1);
+            }
+            user.get(userId).tweet.addFirst(tweetId);
+            tweetTime.put(tweetId, ++time);
+        }
+        
+        public List<Integer> getNewsFeed(int userId) {
+            LinkedList<Integer> ans = new LinkedList<Integer>();
+            for (int it : user.getOrDefault(userId, new Node()).tweet) {
+                ans.addLast(it);
+            }
+            for (int followeeId : user.getOrDefault(userId, new Node()).followee) {
+                if (followeeId == userId) { // 可能出现自己关注自己的情况
+                    continue;
+                }
+                LinkedList<Integer> res = new LinkedList<Integer>();
+                int tweetSize = user.get(followeeId).tweet.size();
+                Iterator<Integer> it = user.get(followeeId).tweet.iterator();
+                int i = 0;
+                int j = 0;
+                int curr = -1;
+                // 线性归并
+                if (j < tweetSize) {
+                    curr = it.next();
+                    while (i < ans.size() && j < tweetSize) {
+                        if (tweetTime.get(curr) > tweetTime.get(ans.get(i))) {
+                            res.addLast(curr);
+                            ++j;
+                            if (it.hasNext()) {
+                                curr = it.next();
+                            }
+                        } else {
+                            res.addLast(ans.get(i));
+                            ++i;
+                        }
+                        // 已经找到这两个链表合起来后最近的 recentMax 条推文
+                        if (res.size() == recentMax) {
+                            break;
+                        }
+                    }
+                }
+                for (; i < ans.size() && res.size() < recentMax; ++i) {
+                    res.addLast(ans.get(i));
+                }
+                if (j < tweetSize && res.size() < recentMax) {
+                    res.addLast(curr);
+                    for (; it.hasNext() && res.size() < recentMax;) {
+                        res.addLast(it.next());
+                    }
+                }
+                ans = new LinkedList<Integer>(res);
+            }
+            return ans;
+        }
+        
+        public void follow(int followerId, int followeeId) {
+            if (!user.containsKey(followerId)) {
+                init(followerId);
+            }
+            if (!user.containsKey(followeeId)) {
+                init(followeeId);
+            }
+            user.get(followerId).followee.add(followeeId);
+        }
+        
+        public void unfollow(int followerId, int followeeId) {
+            user.getOrDefault(followerId, new Node()).followee.remove(followeeId);
+        }
+    }
+    
+    
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num,map.getOrDefault(num,0)+1);
+        }
+        PriorityQueue<Integer[]> queue = new PriorityQueue<>(
+                new Comparator<Integer[]>() {
+                    @Override
+                    public int compare(Integer[] o1, Integer[] o2) {
+                        return o1[1]-o2[1];
+                    }
+                }
+        );
+        for (Map.Entry<Integer,Integer> entry: map.entrySet()) {
+            if(queue.size()==k&&queue.peek()[1]<entry.getValue()){
+                queue.poll();
+            }
+            if(queue.size()<k){
+                queue.offer(new Integer[]{entry.getKey(),entry.getValue()});
+            }
+        }
+        int[] ans=new int[k];
+        for (int i = 0; i < ans.length; i++) {
+            ans[i]=queue.poll()[0];
+        }
+        return ans;
+    }
+    
     
     int[] findCircleNumMap;
     public int findCircleNum(int[][] isConnected) {

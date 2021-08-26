@@ -137,3 +137,21 @@ for{a:as
 
 ![image-20210811171023920](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210811171023920.png)
 
+##### 线段树
+
+[673. 最长递增子序列的个数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/number-of-longest-increasing-subsequence/)
+
+[线段树 从入门到进阶 - Dijkstra·Liu - 博客园 (cnblogs.com)](https://www.cnblogs.com/jason2003/p/9676729.html)
+
+##### 延时双删
+
+##### 大字典模糊匹配
+
+[(3条消息) Wu-Manber 经典多模式匹配算法_pi9nc的专栏-CSDN博客](https://blog.csdn.net/pi9nc/article/details/9124623)
+
+##### 字符串多模式匹配
+
+##### kafka和rabbit丢失消息的补救机制
+
+群友说rocket比较稳定，基本上不丢稍息
+
