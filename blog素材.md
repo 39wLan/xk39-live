@@ -141,6 +141,12 @@ for{a:as
 
 [673. 最长递增子序列的个数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/number-of-longest-increasing-subsequence/)
 
+[327. 区间和的个数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/count-of-range-sum/)
+
+[493. 翻转对 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-pairs/)
+
+[算法学习笔记(14): 线段树 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/106118909)
+
 [线段树 从入门到进阶 - Dijkstra·Liu - 博客园 (cnblogs.com)](https://www.cnblogs.com/jason2003/p/9676729.html)
 
 ##### 延时双删

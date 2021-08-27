@@ -10,7 +10,8 @@ class Solution {
     
     @Test
     public void myTest(){
-        System.out.println(getPermutation(3,3));
+        int[] q=new int[]{1,3,5,4,7};
+        findNumberOfLIS(q);
         
     }
     
@@ -58,6 +59,8 @@ class Solution {
     
     public findNumberOfLISValue findNumberOfLISMerge(findNumberOfLISValue x
             ,findNumberOfLISValue y){
+        System.out.println("Solution.findNumberOfLISMerge");
+        System.out.println("x = " + x + ", y = " + y);
         if(x.length==y.length){
             if(x.length==0){
                 return new findNumberOfLISValue(0,1);
@@ -69,6 +72,8 @@ class Solution {
     
     public void findNumberOfLISInsert(findNumberOfLISNode node,
                                       int key,findNumberOfLISValue val){
+        System.out.println("Solution.findNumberOfLISInsert");
+        System.out.println("node = " + node + ", key = " + key + ", val = " + val);
         if(node.range_left==node.range_right){
             node.val=findNumberOfLISMerge(val,node.val);
             return;
@@ -81,6 +86,8 @@ class Solution {
     }
     
     public findNumberOfLISValue findNumberOfLISQuery(findNumberOfLISNode node,int key){
+        System.out.println("Solution.findNumberOfLISQuery");
+        System.out.println("node = " + node + ", key = " + key);
         if(node.range_right<=key){
             return node.val;
         }else if(node.range_left>key){
@@ -102,6 +109,7 @@ class Solution {
         }
         findNumberOfLISNode node = new findNumberOfLISNode(min, max);
         for (int num : nums) {
+            System.out.println("Solution.findNumberOfLIS: main  num:  "+num);
             findNumberOfLISValue value = findNumberOfLISQuery(node, num - 1);
             findNumberOfLISInsert(node,num,
                     new findNumberOfLISValue(value.length+1, value.count));
