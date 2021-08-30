@@ -161,3 +161,11 @@ for{a:as
 
 群友说rocket比较稳定，基本上不丢稍息
 
+##### Java 异常: Unsupported major.minor version 51.0
+
+https://blog.csdn.net/admin_mvip/article/details/89327520
+
+![image-20210827190428087](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210827190428087.png)
+
+![image-20210827190454873](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210827190454873.png)
+

@@ -16,6 +16,62 @@ class Solution {
     }
     
     
+    class MagicDictionary {
+        
+        class TrieD{
+            boolean isEnd=false;
+            
+            TrieD[] next;
+        }
+        
+        TrieD root;
+        
+        /** Initialize your data structure here. */
+        public MagicDictionary() {
+            root=new TrieD();
+            root.next=new TrieD[26];
+        }
+        
+        public void buildDict(String[] dictionary) {
+            for (String s : dictionary) {
+                buildDict(root,s,0);
+            }
+        }
+    
+        public void buildDict(TrieD trie,String word,int i) {
+            if(word.length()==0||i>=word.length()){
+                return;
+            }
+            if(trie==null){
+                trie=new TrieD();
+            }
+            int index=word.charAt(i)-'a';
+            if(trie.next[index]==null){
+                trie.next[index]=new TrieD();
+            }
+            if(i==word.length()-1){
+                trie.next[index].isEnd=true;
+            }
+            buildDict(trie.next[index],word,++i);
+        }
+        
+        public boolean search(String searchWord) {
+            if (searchWord.length()==0){
+                return false;
+            }
+            return search(root,searchWord,0,false);
+        }
+        
+        public boolean search(TrieD trie,String word,int i,boolean magic){
+            if(i>=word.length()||trie==null){
+                return false;
+            }
+            boolean ans=false;
+            for (int index = 0; index < 26&&(!ans); index++) {
+            
+            }
+        }
+    }
     
     class findNumberOfLISValue{
         int length;
