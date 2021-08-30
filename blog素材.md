@@ -169,3 +169,43 @@ https://blog.csdn.net/admin_mvip/article/details/89327520
 
 ![image-20210827190454873](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210827190454873.png)
 
+#### 群友问答
+
+##### feign底层原理要往哪方面回答？
+
+![image-20210830172625401](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210830172625401.png)
+
+> https://blog.csdn.net/weixin_41335352/article/details/116711499?spm=1001.2014.3001.5501  我当时看完源码写的。让我就说下feign的 发送请求的过程呗。还有几个注解写的很nice
+
+##### mysql数据页，要怎么组织语言比较好
+
+> - 数据页底层是双向链表，  一个页的数据量有限， 那么页存满时，就会用下一个数据页，  那么久要求我们主键单调递增，  减少页分裂，
+>
+> - 数据页是数据页，跟双向链表这种数据结构没有直接关系吧，双向链表是B+树叶子节点得排列方式
+>
+> - 这时候我就要推荐一下我之前写的文章了 哈哈
+>
+>   [MySQL的最深处-磁盘文件结构 (qq.com)](https://mp.weixin.qq.com/s/1-39TWE7FNj6l7eQYTbqGQ)
+>
+> - 数据页就是mysql内存和磁盘数据交换得单位，一个数据页默认是16KB
+>
+> - ![image-20210830172959424](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210830172959424.png)
+>
+> - 不是吧，是页和页之间是双向链表，页内数据不是，单向得。
+>
+> - <img src="https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210830173058590.png" alt="image-20210830173058590"  />
+>
+> - 妈的 记错了 。。。
+>
+> - 页和页之间双向是为了范围查找，很好得支持>= 和<=，页内不需要，页内就是顺序得
+>
+> - 这题我面试遇到过
+>
+> - ![image-20210830173607796](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210830173607796.png)
+>
+> - 问我索引结构为啥选b +
+>
+> - 把这个图记一下
+>
+> - ![image-20210830173704530](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210830173704530.png)
+
