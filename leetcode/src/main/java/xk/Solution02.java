@@ -11,6 +11,78 @@ public class Solution02 {
     
     }
     
+    class ReplaceWordsTrie{
+        boolean endSign=false;
+        ReplaceWordsTrie[] next=new ReplaceWordsTrie[26];
+    };
+    
+    public String replaceWords(List<String> dictionary, String sentence) {
+        ReplaceWordsTrie root=new ReplaceWordsTrie();
+        dictionary.forEach((dict)->{
+            replaceWordsAdd(root,dict,0);
+        });
+        String[] strings=sentence.split(" ");
+        String[] ans=new String[strings.length];
+        for (int i = 0; i < strings.length; i++) {
+            replaceWordsReplace(root,strings[i],0,i,ans);
+        }
+        StringJoiner joiner = new StringJoiner(" ");
+        for (String an : ans) {
+            joiner.add(an);
+        }
+        return joiner.toString();
+    }
+    
+    public void replaceWordsReplace(ReplaceWordsTrie root,String s,int strIndex,int ansIndex,String[] ans){
+        if((root==null)||(strIndex==s.length()&&!root.endSign)){
+            ans[ansIndex]=s;
+            return;
+        }
+        if(root.endSign){
+            ans[ansIndex]=s.substring(0,strIndex);
+            return;
+        }
+        replaceWordsReplace(root.next[s.charAt(strIndex)-'a'],s,strIndex+1,ansIndex,ans );
+    }
+    
+    public void replaceWordsAdd(ReplaceWordsTrie root,String s,int index){
+        if(index==s.length()){
+            root.endSign=true;
+            return;
+        }
+        int i=s.charAt(index)-'a';
+        if(root.next[i]==null){
+            root.next[i]=new ReplaceWordsTrie();
+        }
+        replaceWordsAdd(root.next[i], s, index+1);
+    }
+    
+    
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num,map.getOrDefault(num,0)+1);
+        }
+        PriorityQueue<Integer[]> queue = new PriorityQueue<>(new Comparator<Integer[]>() {
+            @Override
+            public int compare(Integer[] o1, Integer[] o2) {
+                return o1[1]-o2[1];
+            }
+        });
+        map.forEach((key, value) -> {
+            queue.add(new Integer[]{key,value});
+            while (queue.size()>k){
+                queue.poll();
+            }
+        });
+        int[] ans=new int[k];
+        for (int i = 0; i < ans.length; i++) {
+            if(!queue.isEmpty()){
+                ans[i]=queue.poll()[0];
+            }
+        }
+        return ans;
+    }
     
     public int numSubarrayProductLessThanK(int[] nums, int k) {
         int ans=0;
