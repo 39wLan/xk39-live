@@ -10,68 +10,111 @@ class Solution {
     
     @Test
     public void myTest(){
-        int[] q=new int[]{1,3,5,4,7};
-        findNumberOfLIS(q);
-        
+        byte b= (byte) 0b10000000;
+        System.out.println(b);
+        System.out.println(Byte.MAX_VALUE);
+    }
+
+    
+
+    
+    /**
+     * 0经过key次X运算结果为value位
+     */
+    HashMap<Long,Integer> temMap =new HashMap<>();
+    
+    int mod= (int)(10e9+7);
+    
+    public int temX(long m){
+        if(temMap.containsKey(m)){
+            return temMap.get(m);
+        }
+        int ans=(temX(m-10)+temX(m-9))%mod;
+        temMap.put(m,ans);
+        return ans;
+    }
+    
+    public int temmie(int n,int m){
+        for (long i = 0; i < 10; i++) {
+            temMap.put(i,1);
+        }
+        temMap.put(10L,2);
+        /**
+         * 确保temDp中m~m+9的key全部存在
+         */
+        for (long i = 0L; i < 10; i++) {
+            temX(m+i);
+        }
+        int ans=0;
+        /**
+         * do{}while()
+         * 防止n初始值为0
+         */
+        do{
+            long cur=n%10;
+            ans=(ans+ temMap.get(m+cur))%mod;
+            n/=10;
+        }while (n!=0);
+        return ans;
     }
     
     
-    class MagicDictionary {
-        
-        class TrieD{
-            boolean isEnd=false;
-            
-            TrieD[] next;
-        }
-        
-        TrieD root;
-        
-        /** Initialize your data structure here. */
-        public MagicDictionary() {
-            root=new TrieD();
-            root.next=new TrieD[26];
-        }
-        
-        public void buildDict(String[] dictionary) {
-            for (String s : dictionary) {
-                buildDict(root,s,0);
-            }
-        }
-    
-        public void buildDict(TrieD trie,String word,int i) {
-            if(word.length()==0||i>=word.length()){
-                return;
-            }
-            if(trie==null){
-                trie=new TrieD();
-            }
-            int index=word.charAt(i)-'a';
-            if(trie.next[index]==null){
-                trie.next[index]=new TrieD();
-            }
-            if(i==word.length()-1){
-                trie.next[index].isEnd=true;
-            }
-            buildDict(trie.next[index],word,++i);
-        }
-        
-        public boolean search(String searchWord) {
-            if (searchWord.length()==0){
-                return false;
-            }
-            return search(root,searchWord,0,false);
-        }
-        
-        public boolean search(TrieD trie,String word,int i,boolean magic){
-            if(i>=word.length()||trie==null){
-                return false;
-            }
-            boolean ans=false;
-            for (int index = 0; index < 26&&(!ans); index++) {
-            
-            }
-        }
-    }
+//    class MagicDictionary {
+//
+//        class TrieD{
+//            boolean isEnd=false;
+//
+//            TrieD[] next;
+//        }
+//
+//        TrieD root;
+//
+//        /** Initialize your data structure here. */
+//        public MagicDictionary() {
+//            root=new TrieD();
+//            root.next=new TrieD[26];
+//        }
+//
+//        public void buildDict(String[] dictionary) {
+//            for (String s : dictionary) {
+//                buildDict(root,s,0);
+//            }
+//        }
+//
+//        public void buildDict(TrieD trie,String word,int i) {
+//            if(word.length()==0||i>=word.length()){
+//                return;
+//            }
+//            if(trie==null){
+//                trie=new TrieD();
+//            }
+//            int index=word.charAt(i)-'a';
+//            if(trie.next[index]==null){
+//                trie.next[index]=new TrieD();
+//            }
+//            if(i==word.length()-1){
+//                trie.next[index].isEnd=true;
+//            }
+//            buildDict(trie.next[index],word,++i);
+//        }
+//
+//        public boolean search(String searchWord) {
+//            if (searchWord.length()==0){
+//                return false;
+//            }
+//            return search(root,searchWord,0,false);
+//        }
+//
+////        public boolean search(TrieD trie,String word,int i,boolean magic){
+////            if(i>=word.length()||trie==null){
+////                return false;
+////            }
+////            boolean ans=false;
+////            for (int index = 0; index < 26&&(!ans); index++) {
+////
+////            }
+////        }
+//    }
     
     class findNumberOfLISValue{
         int length;
