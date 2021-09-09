@@ -14,8 +14,57 @@ class Solution {
         System.out.println(b);
         System.out.println(Byte.MAX_VALUE);
     }
-
     
+    int[][] isScrambleOne;
+    int[][] isScrambleTwo;
+    char[] isScrambleStr1;
+    char[] isScrambleStr2;
+    HashMap<Integer,Boolean> isScrambleMap;
+    HashMap<Integer,Boolean> isScrambleMapEq;
+    public boolean isScramble(String s1, String s2) {
+        isScrambleOne=new int[s1.length()+1][26];
+        isScrambleTwo=new int[s1.length()+1][26];
+        isScrambleMap=new HashMap<Integer,Boolean>();
+        isScrambleMapEq=new HashMap<Integer,Boolean>();
+        isScrambleStr1=s1.toCharArray();
+        isScrambleStr2=s2.toCharArray();
+        for (int i = 1; i <= s1.length(); i++) {
+            for (int j = i; j <= s1.length(); j++) {
+                isScrambleOne[j][isScrambleStr1[i-1]-'a']+=1;
+                isScrambleTwo[j][isScrambleStr2[i-1]-'a']+=1;
+            }
+        }
+        return isScrambleEquals(0,s1.length()-1,0,s1.length()-1);
+    }
+    
+    public boolean isScrambleEquals(int left1,int right1,int left2,int right2){
+        int key=(left1*100+right1)*10000+(left2*100+right2);
+        if(isScrambleMapEq.containsKey(key)){
+            return isScrambleMapEq.get(key);
+        }
+        if(left1==right1){
+            if(isScrambleStr1[left1]==isScrambleStr2[left2]){
+                isScrambleMapEq.put(key,true);
+                return true;
+            }else {
+                isScrambleMapEq.put(key,false);
+                return false;
+            }
+        }
+        int len=right1+1-left1;
+        int[] tempLeft1=isScrambleOne[left1];
+        int[] tempRight1=isScrambleOne[right1+1];
+        int[] tempLeft2=isScrambleTwo[left2];
+        int[] tempRight2=isScrambleTwo[right2+1];
+        for (int i = 0; i < tempLeft1.length; i++) {
+            if(tempRight1[i]-tempLeft1[i]!=tempRight2[i]-tempLeft2[i]){
+                isScrambleMap.put(key,false);
+                isScrambleMapEq.put(key,false);
+                return false;
+            }
+        }
+        return true;
+    }
 
     
     /**

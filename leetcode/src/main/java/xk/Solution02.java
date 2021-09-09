@@ -6,10 +6,100 @@ import java.util.*;
 import java.util.function.Function;
 
 public class Solution02 {
+    
     @Test
     public void myTest(){
-    
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(null,10);
+        System.out.println(map.get(null));
+        System.out.println(map.get(0));
+        map.put(0,20);
+        System.out.println(map.get(null));
+        System.out.println(map.get(0));
     }
+    
+    
+    int[][] isScrambleOne;
+    int[][] isScrambleTwo;
+    char[] isScrambleStr1;
+    char[] isScrambleStr2;
+    HashMap<Integer,Boolean> isScrambleMap;
+    HashMap<Integer,Boolean> isScrambleMapEq;
+    public boolean isScramble(String s1, String s2) {
+        isScrambleOne=new int[s1.length()+1][26];
+        isScrambleTwo=new int[s1.length()+1][26];
+        isScrambleMap=new HashMap<Integer,Boolean>();
+        isScrambleMapEq=new HashMap<Integer,Boolean>();
+        isScrambleStr1=s1.toCharArray();
+        isScrambleStr2=s2.toCharArray();
+        for (int i = 1; i <= s1.length(); i++) {
+            for (int j = i; j <= s1.length(); j++) {
+                isScrambleOne[j][isScrambleStr1[i-1]-'a']+=1;
+                isScrambleTwo[j][isScrambleStr2[i-1]-'a']+=1;
+            }
+        }
+        return isScrambleCompare(0,s1.length()-1,0,s1.length()-1);
+    }
+    public boolean isScrambleCompare(int left1,int right1,int left2,int right2){
+        int key=(left1*100+right1)*10000+(left2*100+right2);
+        if(isScrambleMap.containsKey(key)){
+            return isScrambleMap.get(key);
+        }
+        if(!isScrambleEquals(left1,right1,left2,right2)){
+            isScrambleMap.put(key,false);
+            return false;
+        }
+        boolean ans=false;
+        if(left1==right1&&left2==right2){
+            ans=isScrambleStr1[left1]==isScrambleStr2[left2];
+            isScrambleMap.put(key,ans);
+            return ans;
+        }
+        for (int i = 0; left1+i < right1; i++) {
+            if(isScrambleEquals(left1,left1+i,left2,left2+i)){
+                boolean temp=(isScrambleCompare(left1,left1+i,left2,left2+i)&&
+                        isScrambleCompare(left1+i+1,right1,left2+i+1,right2));
+                ans=ans||temp;
+            }
+            if(isScrambleEquals(left1,left1+i,right2-i,right2)){
+                boolean temp=(isScrambleCompare(left1,left1+i,right2-i,right2)&&
+                        isScrambleCompare(left1+i+1,right1,left2,right2-i-1));
+                ans=ans||temp;
+            }
+        }
+        isScrambleMap.put(key,ans);
+        return ans;
+    }
+    public boolean isScrambleEquals(int left1,int right1,int left2,int right2){
+        int key=(left1*100+right1)*10000+(left2*100+right2);
+        if(isScrambleMapEq.containsKey(key)){
+            return isScrambleMapEq.get(key);
+        }
+        if(left1==right1){
+            if(isScrambleStr1[left1]==isScrambleStr2[left2]){
+                isScrambleMapEq.put(key,true);
+                return true;
+            }else {
+                isScrambleMapEq.put(key,false);
+                return false;
+            }
+        }
+        int[] tempLeft1=isScrambleOne[left1];
+        int[] tempRight1=isScrambleOne[right1+1];
+        int[] tempLeft2=isScrambleTwo[left2];
+        int[] tempRight2=isScrambleTwo[right2+1];
+        for (int i = 0; i < tempLeft1.length; i++) {
+            System.out.println(i+" :"+tempRight1[i]+" "+tempLeft1[i]+" "+tempRight2[i]+" "+tempLeft2[i]);
+            if(tempRight1[i]-tempLeft1[i]!=tempRight2[i]-tempLeft2[i]){
+                isScrambleMap.put(key,false);
+                isScrambleMapEq.put(key,false);
+                return false;
+            }
+        }
+        isScrambleMapEq.put(key,true);
+        return true;
+    }
+    
     
     class ReplaceWordsTrie{
         boolean endSign=false;
