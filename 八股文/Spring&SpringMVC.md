@@ -29,7 +29,7 @@
 
 ## Spring Bean 的生命周期
 
-> ![image-20210306204849460](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210306204849460.png)
+> ![image-20210910181909664](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210910181909664.png)
 >
 > Spring Bean 的生命周期简单易懂。在一个 Bean 实例被初始化时，需要执行一系列的初始化操作以达到可用的状态。同样的，当一个 Bean 不在被调用时需要进行相关的析构操作，并从 Bean 容器中移除。
 > Spring BeanFactory 负责管理在 Spring 容器中被创建的 Bean 的生命周期。Bean 的生命周期由两组回调（call back）方法组成。
@@ -46,7 +46,7 @@
 
 ## Spring Bean作用域，什么时候使用request作用域。
 
-> ![image-20210306195733982](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210306195733982.png)
+> ![image-20210910181940922](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210910181940922.png)
 >
 > 详读：https://blog.csdn.net/icarus_wang/article/details/51586776
 
@@ -86,16 +86,14 @@
 
 > a. Spring事务实现机制：
 >
-> ![image-20210306202710129](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210306202710129.png)
->
-> 
+> ![image-20210910182015430](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210910182015430.png)
 >
 > b. 事务注解@transactional；
 >
 > c. 默认情况下，如果在事务中抛出了未检查异常（继承自 RuntimeException 的异常）或者 Error，则 Spring 将回滚事务。
 >
 > d. @Transactional 只能应用到 public 方法才有效：只有@Transactional 注解应用到 public 方法，才能进行事务管理。这是因为
-> 在使用 Spring AOP 代理时，Spring 在调用在图 1 中的 TransactionInterceptor 在⽬标方法执行前后进行拦截之前，DynamicAdvisedInterceptor（CglibAopProxy 的内部类）的的 intercept 方法或 JdkDynamicAopProxy 的 invoke 方法会间接调
+>在使用 Spring AOP 代理时，Spring 在调用在图 1 中的 TransactionInterceptor 在⽬标方法执行前后进行拦截之前，DynamicAdvisedInterceptor（CglibAopProxy 的内部类）的的 intercept 方法或 JdkDynamicAopProxy 的 invoke 方法会间接调
 > 用 AbstractFallbackTransactionAttributeSource（Spring 通过这个类获取表 1. @Transactional 注解的事务属性配置属性信息）的 computeTransactionAttribute 方法。
 
 ## Spring 事务实现方式
@@ -142,11 +140,11 @@
 >
 > c. 关键词：
 >
-> ![image-20210306203156395](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210306203156395.png)
+> ![image-20210910182054990](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210910182054990.png)
 
 ## 什么是脏读、不可重复读、幻读
 
-> ![image-20210306203258072](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210306203258072.png)
+> ![image-20210910182119867](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210910182119867.png)
 >
 > 1. 脏读（新增或删除）：脏读就是指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据；
 > > 1. Mary的原工资为1000, 财务⼈员将Mary的工资改为了8000(但未提交事务) 
