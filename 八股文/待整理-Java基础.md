@@ -114,7 +114,7 @@
 
 ## jvm内存模型，各个部分的特点？
 
-> ![image-20210318061838031](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210318061838031.png)
+> ![image-20210318061838031](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210318061838031.png)
 >
 > 1. PC寄存器：
 >     a. 每个线程拥有⼀个pc寄存器；
@@ -160,13 +160,13 @@
 >
 > 二、实例演示 AppMain.java
 >
-> ![image-20210317043412438](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317043412438.png)
+> ![image-20210317043412438](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317043412438.png)
 >
 > 运行该程序时，首先启动一个 Java 虚拟机进程，这个进程首先从 classpath 中找到 AppMain.class 文件，读取这个文件中的二进制数据，然后把 Appmain 类的类信息存放到运行时数据区的方法区中，这就是AppMain 类的加载过程。
 >
 > 接着，Java 虚拟机定位到方法区中 AppMain 类的 Main()方法的字节码，开始执行它的指令。 这个 main()方法的第一条语句就是：
 >
-> ![image-20210317043646695](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317043646695.png)
+> ![image-20210317043646695](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317043646695.png)
 >
 > 该语句的执行过程：
 >
@@ -248,7 +248,7 @@
 
 ## java堆的结构，⼀个bean被new出来之后，在内存空间的走向？
 
-> ![image-20210318063121830](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210318063121830.png)
+> ![image-20210318063121830](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210318063121830.png)
 >
 > 1、JVM中堆空间可以分成三个大区，新生代、老年代、永久代
 > 2、新⽣代可以划分为三个区，Eden区，两个Survivor区，在HotSpot虚拟机Eden和Survivor的大小比例为8：1：1
@@ -283,7 +283,7 @@
 >
 > 例子解析
 >
-> ![image-20210317060140114](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317060140114.png)
+> ![image-20210317060140114](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317060140114.png)
 >
 > 假设这句代码出现在方法体中，那么 Object obj 将会反映到 java 栈的局部变量表中，作为一个 reference 类型数据出现，new Object()将会反映到 java 堆中，形成一块存储了 Object 类型的实例数据的结构化内存，此对象类型数据，如对象类型、父类、实现的接口、方法 等信息存储在方法区。
 
@@ -301,7 +301,7 @@
 >
 > 在 JDK7 以及其前期的 JDK 版本中，堆内存通常被分为三块区域 Nursery 内存(young generation)、长时内存(old generation)、永久内存(Permanent Generation for VM Matedata)， 显示如下图：
 >
-> ![image-20210316082343866](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210316082343866.png)
+> ![image-20210316082343866](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210316082343866.png)
 >
 > 在最上面一层是 Nursery 内存，一个对象被创建以后首先被放到 Nuersery 中的 Eden 内存中，如果存活周期超过两个 Survivor（生存周期）之后会被转移到 Old Generation 中。 
 >
@@ -309,7 +309,7 @@
 >
 > 但是在 JDK1.8 中一般都不会得到这个错误，原因在于1.8 中把存放元数据的永久内存从堆内存中已到了本地内存（native Memory）中，1.8 中 JVM 内存结构变成了如下图：
 >
-> ![image-20210316082554752](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210316082554752.png)
+> ![image-20210316082554752](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210316082554752.png)
 >
 > 这样永久内存就不占用堆内存，可以通过自增长来避免永久内存错误。 
 >
@@ -337,13 +337,13 @@
 
 > 在面试 java 工程师的时候，这道题经常被问到，故需特别注意。 Java 中的所有类，都需要由类加载器装载到 JVM 中才能运行。类加载器本身也是一个类，而它的工作就是把 class 文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。 Java 类的加载是动态的，它并不会一次性将所有类全部加载后再运行，而是保证程序运行的基础类(像是基类)完全加载到 jvm 中，至于其他类，则在需要的时候才加载。这当然就是为了节省内存开销。 Java 的类加载器有三个，对应 Java 的三种类:
 >
-> ![image-20210317035520829](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317035520829.png)
+> ![image-20210317035520829](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317035520829.png)
 >
 > 三个加载器各自完成自己的工作，但它们是如何协调工作呢？哪一个类该由哪个类加载器完成呢？为了解决这个问题，Java 采用了委托模型机制。
 >
 > 委托模型机制的工作原理很简单：当类加载器需要加载类的时候，先请示其 Parent(即上一 层加载器)在其搜索路径载入，如果找不到，才在自己的搜索路径搜索该类。这样的顺序其实就是加载器层次上自顶而下的搜索，因为加载器必须保证基础类的加载。之所以是这种机制，还有一个安全上的考虑：如果某人将一个恶意的基础类加载到 jvm，委托模型机制会搜索其父类加载器，显然是不可能找到的，自然就不会将该类加载进来。 我们可以通过这样的代码来获取类加载器:
 >
-> ![image-20210317035707498](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317035707498.png)
+> ![image-20210317035707498](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317035707498.png)
 >
 > 注意一个很重要的问题，就是 Java 在逻辑上并不存在 BootstrapKLoader 的实体！因为它是用 C++编写的，所以打印其内容将会得到 null。 
 >
@@ -353,11 +353,11 @@
 >
 > 2.连接:
 >
-> ![image-20210317035821752](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317035821752.png)
+> ![image-20210317035821752](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317035821752.png)
 >
 > 3.初始化:初始化静态变量，静态代码块。
 >
-> ![image-20210317035857040](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317035857040.png)
+> ![image-20210317035857040](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317035857040.png)
 >
 > 来源：https://www.cnblogs.com/wenjiang/archive/2013/04/26/3044132.html
 
@@ -408,7 +408,7 @@
 > 当⼀个类收到了类加载请求，他⾸先不会尝试自己去加载这个类，⽽是把这个请求委派给父类去完成，每一
 > 个层次类加载器都是如此，因此所有的加载请求都应该传送到启动类加载其中，只有当父类加载器反馈⾃⼰⽆法完成这个请求的时候（在它的加载路径下没有找到所需加载的Class），子类加载器才会尝试自己去加载。
 >
-> ![image-20210318062509548](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210318062509548.png)
+> ![image-20210318062509548](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210318062509548.png)
 
 ## 什么是类加载器？
 
@@ -438,7 +438,7 @@
 
 > 在 tomcat 中类的加载稍有不同，如下图：
 >
-> ![image-20210317041249182](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317041249182.png)
+> ![image-20210317041249182](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317041249182.png)
 >
 > 当 tomcat 启动时，会创建几种类加载器：
 >
@@ -446,13 +446,13 @@
 >
 > 2.System 系统类加载器：加载 tomcat 启动的类，比如 bootstrap.jar ，通常在 catalina.bat 或者catalina.sh 中指定。位于 CATALINA_HOME/bin 下。
 >
-> ![image-20210317041924223](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317041924223.png)
+> ![image-20210317041924223](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317041924223.png)
 >
 > 3.Common 通用类加载器
 >
 > 加载 tomcat 使用以及应用通用的一些类，位于 CATALINA_HOME/lib 下，比如 servlet-api.jar
 >
-> ![image-20210317042105682](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317042105682.png)
+> ![image-20210317042105682](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317042105682.png)
 >
 > 4.webapp 应用类加载器
 >
@@ -810,11 +810,11 @@ Integer b1 = 127;在 java 编译时被编译成 Integer b1 = Integer.valueOf(127
 > 如果有两个线程A和B，都进行插入数据，刚好这两条不同的数据经过哈希计算后得到的哈希码是一样的，且该位置还没有其他的数据。所以这两个线程都会进入我在上面标记为1的代码中。假设一种情况，线程A通过if判断，该位置没有哈希冲突，进入了if语句，还没有进行数据插入，这时候 CPU 就把资源让给了线程B，线程A停在了if语句里面，线程B判断该位置没有哈希冲突（线程A的数据还没插入），也进入了if语句，线程B执行完后，轮到线程A执行，现在线程A直接在该位置插入而不用再判断。这时候，你会发现线程A把线程B插入的数据给覆盖了。发生了线程不安全情况。本来在 HashMap 中，发生哈希冲突是可以用链表法或者红黑树来解决的，但是在多线程中，可能就直接给覆盖了。
 > 上面所说的是一个图来解释可能更加直观。如下面所示，两个线程在同一个位置添加数据，后面添加的数据就覆盖住了前面添加的。
 >
-> ![image-20210315110038909](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210315110038909.png)
+> ![image-20210315110038909](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210315110038909.png)
 >
 > 如果上述插入是插入到链表上，如两个线程都在遍历到最后一个节点，都要在最后添加一个数据，那么后面添加数据的线程就会把前面添加的数据给覆盖住。则
 >
-> ![image-20210315110317218](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210315110317218.png)
+> ![image-20210315110317218](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210315110317218.png)
 >
 > 在扩容的时候也可能会导致数据不一致，因为扩容是从一个数组拷贝到另外一个数组。
 
@@ -846,11 +846,11 @@ Integer b1 = 127;在 java 编译时被编译成 Integer b1 = Integer.valueOf(127
 > 1、数据结构：
 > 以下是ConcurrentHashMap的类图：
 >
-> ![image-20210318063946845](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210318063946845.png)
+> ![image-20210318063946845](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210318063946845.png)
 >
 > ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是⼀种可重入锁ReentrantLock，在ConcurrentHashMap中扮演锁的角色，HashEntry则用于存储键值对数据。⼀个ConcurrentHashMap中包含⼀个Segment数组，Segment的结构和HashMap类似，是⼀种数组和链表结构。⼀个Segment⾥⾯包含⼀个HashEntry数组，每个HashEntry是⼀个链表的元素。每个Segment拥有⼀个锁，当对HashEntry数组的数据进行修改时，必须先获得对应的Segment锁，如图所示：
 >
-> ![image-20210318064113922](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210318064113922.png)
+> ![image-20210318064113922](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210318064113922.png)
 >
 > 2、concurrenthashmap 1.7和1.8区分：
 > 去除 Segment + HashEntry + Unsafe的实现，改为 Synchronized + CAS + Node + Unsafe的实现
@@ -875,7 +875,7 @@ Integer b1 = 127;在 java 编译时被编译成 Integer b1 = Integer.valueOf(127
 >
 > 2. Java 8为进⼀步提高并发性，摒弃了分段锁的方案，而是直接使⽤一个大的数组。同时为了提高哈希碰撞下的寻址性能，Java 8在链表长度超过⼀定阈值（8）时将链表（寻址时间复杂度为O(N)）转换为红黑树（寻址时间复杂度为O(long(N))）。其数据结构如下图所示
 >
->    ![image-20210317143037624](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317143037624.png)
+>    ![image-20210317143037624](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317143037624.png)
 
 
 
@@ -905,7 +905,7 @@ Integer b1 = 127;在 java 编译时被编译成 Integer b1 = Integer.valueOf(127
 
 > 1. java arraylist,linkedlist区分及实现原理：
 >
->    ![image-20210317141647304](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317141647304.png)
+>    ![image-20210317141647304](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317141647304.png)
 >
 >    1. ArrayList是实现了基于动态数组的数据结构，而LinkedList是基于链表的数据结构；
 >     2. 对于随机访问get和set，ArrayList要优于LinkedList，因为LinkedList要移动指针；
@@ -949,7 +949,7 @@ Integer b1 = 127;在 java 编译时被编译成 Integer b1 = Integer.valueOf(127
 
 > HashMap结构图
 >
-> ![image-20210315111205384](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210315111205384.png)
+> ![image-20210315111205384](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210315111205384.png)
 >
 > 在 JDK1.7 及之前的版本中， HashMap 又叫散列链表：基于一个数组以及多个链表的实现，hash值冲突的时候，就将对应节点以链表的形式存储。
 > JDK1.8 中，当同一个hash值（ Table 上元素）的链表节点数不小于8时，将不再以单链表的形式存储了，会被调整成一颗红黑树。这就是 JDK7 与 JDK8 中 HashMap 实现的最大区别。
@@ -1011,7 +1011,7 @@ Integer b1 = 127;在 java 编译时被编译成 Integer b1 = Integer.valueOf(127
 >
 > 因为 Java 数组变量是引用类型的变量，所以上述几行初始化语句执行后，三个数组在内存中的分配情况如下图所示：
 >
-> ![image-20210316044151271](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210316044151271.png)
+> ![image-20210316044151271](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210316044151271.png)
 >
 > 由上图可知，静态初始化方式，程序员虽然没有指定数组长度，但是系统已经自动帮我们给分配了，而动态初始化方式，程序员虽然没有显示的指定初始化值，但是因为 Java 数组是引用类型的变量，所以系统也为每个元素分配了初始化值 null ，当然不同类型的初始化值也是不一样的，假设是基本类型int类型，那么为系统分配的初始化值也是对应的默认值0。
 
@@ -1634,7 +1634,7 @@ Integer b1 = 127;在 java 编译时被编译成 Integer b1 = Integer.valueOf(127
 
 ## 异常分类以及处理机制
 
-> ![image-20210316035532779](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210316035532779.png)
+> ![image-20210316035532779](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210316035532779.png)
 >
 > Java标准库内建了一些通用的异常，这些类以Throwable为顶层父类。
 > Throwable又派生出Error类和Exception类。
@@ -1642,7 +1642,7 @@ Integer b1 = 127;在 java 编译时被编译成 Integer b1 = Integer.valueOf(127
 > 因此，程序员应该关注Exception为父类的分支下的各种异常类。
 > 异常：Exception以及他的子类，代表程序运行时发送的各种不期望发生的事件。可以被Java异常处理机制使用，是异常处理的核心。
 >
-> ![image-20210316035702022](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210316035702022.png)
+> ![image-20210316035702022](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210316035702022.png)
 >
 > 总体上我们根据 Javac 对异常的处理要求，将异常类分为二类。
 >
@@ -1699,7 +1699,7 @@ Integer b1 = 127;在 java 编译时被编译成 Integer b1 = Integer.valueOf(127
 > 提供了身份验证与加密通信⽅法，被⼴泛⽤于互联⽹上安全敏感的通
 > 信。
 >
-> ![image-20210317132341641](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210317132341641.png)
+> ![image-20210317132341641](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210317132341641.png)
 >
 > 
 >
