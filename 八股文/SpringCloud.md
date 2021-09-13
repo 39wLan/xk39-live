@@ -16,7 +16,7 @@
 >
 > 2、dubbo负载策略：
 >
-> ![image-20210306194815793](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210306194815793.png)
+> ![image-20210306194815793](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210306194815793.png)
 
 ## SpringCloud全家桶包含哪些组件？
 
@@ -33,7 +33,7 @@
 
 ## springcloud有哪些核⼼组件，以及springcloud服务调⽤的详细⼯作流程？
 
-> ![image-20210306195156254](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210306195156254.png)
+> ![image-20210306195156254](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210306195156254.png)
 >
 > springcloud由以下⼏个核⼼组件构成：
 > Eureka：各个服务启动时，Eureka Client都会将服务注册到Eureka Server，并且Eureka Client还可以反过来从Eureka Server拉取注册表，从⽽知道其他服务在哪⾥
@@ -53,7 +53,7 @@
 
 ## 消费者是如何发现服务提供者的?
 
-> ![image-20210306200446664](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210306200446664.png)
+> ![image-20210306200446664](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210306200446664.png)
 >
 > a. 当⼀个服务实例启动，会将它的ip地址等信息注册到eureka；
 > b. 当a服务调⽤b服务，a服务会通过Ribbon检查本地是否有b服务实例信息的缓存；
@@ -74,7 +74,7 @@
 
 ## eureka缓存机制？
 
-> ![image-20210306204048389](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210306204048389.png)
+> ![image-20210306204048389](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210306204048389.png)
 >
 > a. 第⼀层缓存：readOnlyCacheMap，本质上是ConcurrentHashMap：这是⼀个JVM的CurrentHashMap只读缓存，这个主要是为了供客户端获取注册信息时使⽤，其缓存更新，依赖于定时器的更新，通过和readWriteCacheMap 的值做对⽐，如果数据不⼀致，则以readWriteCacheMap 的数据为准。readOnlyCacheMap 缓存更新的定时器时间间隔，默认为30秒
 > b. 第⼆层缓存：readWriteCacheMap，本质上是Guava缓存：此处存放的是最终的缓存， 当服务下线，过期，注册，状态变更，都会来清除这个缓存⾥⾯的数据。 然后通过CacheLoader进⾏缓存加载，在进⾏readWriteCacheMap.get(key)的时候，⾸先看这个缓存⾥⾯有没有该数据，如果没有则通过CacheLoader的load⽅法去加载，加载成功之后将数据放⼊缓存，同时返回数据。readWriteCacheMap 缓存过期时间，默认为 180 秒 。

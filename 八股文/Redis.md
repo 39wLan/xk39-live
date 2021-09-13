@@ -102,7 +102,7 @@ AOF的优缺点
 
 过期策略通常有以下三种：
 
-![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/Redis-0010.png)
+![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/redis-0010.png)
 
 > - **定时过期**：**每个设置过期时间的key都需要创建一个定时器，到过期时间就会立即清除**。该策略可以立即清除过期的数据，对内存很友好；但是会占用大量的CPU资源去处理过期的数据，从而影响缓存的响应时间和吞吐量。
 > - **惰性过期**：只有当**访问一个key时，才会判断该key是否已过期**，过期则清除。该策略可以最大化地节省CPU资源，却对内存非常不友好。极端情况可能出现大量的过期key没有再次被访问，从而不会被清除，占用大量内存。
@@ -139,7 +139,7 @@ AOF的优缺点
 
 - 缓存穿透是指用户请求的数据**在缓存中不存在并且在数据库中也不存在**，导致用户每次请求该数据都要去数据库中查询一遍，然后返回空。
 
-![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/Redis-0012.png)
+![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/redis-0012.png)
 
 解决方案:
 
