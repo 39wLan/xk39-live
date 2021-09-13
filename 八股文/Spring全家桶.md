@@ -93,7 +93,7 @@ Spring 总共大约有 20 个模块， 由 1300 多个不同的文件构成。�
 
 #### @$什么是Spring IoC 容器？
 
-控制反转即IoC (Inversion of Control)，它把传统上由程序代码直接操控的对象的调用权交给容器，通过容器来实现对象组件的装配和管理。所谓的“控制反转”概念就是对对象组件控制权的转移，从程序代码本身转移到了外部容器。
+控制反转即IoC (Inversion of Control)，它把传统上由程序代码直接操控的对象的调用权交给容器，通过容器来实现对象组件的装配和管理。所谓的“控制反转”概念就是**对对象组件控制权的转移，从程序代码本身转移到了外部容器**。
 
 Spring IoC 负责创建对象，管理对象（通过依赖注入（DI），装配对象，配置对象，并且管理这些对象的整个生命周期。)
 
@@ -154,7 +154,7 @@ BeanFactory和ApplicationContext是Spring的两大核心接口，都可以当做
 
 为了更直观的展示 “低级容器” 和 “高级容器” 的关系，这里通过常用的 ClassPathXmlApplicationContext 类来展示整个容器的层级 UML 关系。
 
-![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/Spring全家桶-0002.png)
+<img src="https://gitee.com/xk39/typora-imgs/raw/master/imgs/Spring全家桶-0002.png"  />
 
 **依赖关系**
 
@@ -172,9 +172,9 @@ ApplicationContext接口作为BeanFactory的派生，可以称之为 “**高级
 
 **加载方式**
 
-BeanFactroy采用的是延迟加载形式来注入Bean的，即只有在使用到某个Bean时(调用getBean())，才对该Bean进行加载实例化。这样，我们就不能发现一些存在的Spring的配置问题。如果Bean的某一个属性没有注入，BeanFacotry加载后，直至第一次使用调用getBean方法才会抛出异常。
+BeanFactroy采用的是**延迟加载**形式来注入Bean的，即只有在使用到某个Bean时(调用getBean())，才对该Bean进行加载实例化。这样，我们就不能发现一些存在的Spring的配置问题。如果Bean的某一个属性没有注入，BeanFacotry加载后，直至第一次使用调用getBean方法才会抛出异常。
 
-ApplicationContext，它是在容器启动时，一次性创建了所有的Bean。这样，在容器启动时，我们就可以发现Spring中存在的配置错误，这样有利于检查所依赖属性是否注入。ApplicationContext启动后预载入所有的单实例Bean，通过预载入单实例bean，确保当你需要的时候，你就不用等待，因为它们已经创建好了。
+ApplicationContext，它是在容器启动时，**一次性创建了所有的Bean**。这样，在容器启动时，我们就可以发现Spring中存在的配置错误，这样有利于检查所依赖属性是否注入。ApplicationContext启动后预载入所有的单实例Bean，通过预载入单实例bean，确保当你需要的时候，你就不用等待，因为它们已经创建好了。
 
 相对于基本的BeanFactory，ApplicationContext 唯一的不足是占用内存空间。当应用程序配置Bean较多时，程序启动较慢。
 
@@ -184,13 +184,13 @@ BeanFactory通常以编程的方式被创建，ApplicationContext还能以声明
 
 **注册方式**
 
-BeanFactory和ApplicationContext都支持BeanPostProcessor、BeanFactoryPostProcessor的使用，但两者之间的区别是：BeanFactory需要手动注册，而ApplicationContext则是自动注册。
+BeanFactory和ApplicationContext都支持BeanPostProcessor、BeanFactoryPostProcessor的使用，但两者之间的区别是：BeanFactory需要**手动注册**，而ApplicationContext则是**自动注册**。
 
 #### @$什么是Spring的依赖注入(Dependency Injection)？
 
 控制反转IoC是一个很大的概念，可以有不同的实现方式。其主要实现方式有两种：依赖注入和依赖查找
 
-依赖注入：相对于IoC而言，依赖注入(DI)更加准确地描述了IoC的设计理念。所谓依赖注入（Dependency Injection），即组件之间的依赖关系由容器在应用系统运行期来决定，也就是由容器动态地将某种依赖关系的目标对象实例注入到应用系统中的各个关联的组件之中。组件不做定位查询，只提供普通的Java方法，让容器去决定依赖关系。
+依赖注入：相对于IoC而言，依赖注入(DI)更加准确地描述了IoC的设计理念。所谓依赖注入（Dependency Injection），即组件之间的依赖关系由容器在应用系统运行期来决定，也就是**由容器动态地将某种依赖关系的目标对象实例注入到应用系统中的各个关联的组件之中。组件不做定位查询，只提供普通的Java方法，让容器去决定依赖关系**。
 
 依赖查找（Dependency Lookup）：容器提供回调接口和上下文环境给组件。EJB和Apache Avalon都使用这种方式。
 
@@ -213,7 +213,7 @@ BeanFactory和ApplicationContext都支持BeanPostProcessor、BeanFactoryPostProc
 | 任意修改是否创建新实例 | 任意修改都会创建一个新实例 | 任意修改不会创建一个新实例 |
 | 适用场景               | 适用于设置很多属性         | 适用于设置少量属性         |
 
-最好的解决方案是用构造器参数实现强制依赖，setter方法实现可选依赖。
+最好的解决方案是用**构造器参数实现强制依赖，setter方法实现可选依赖**。
 
 ### 面向切面编程(AOP)
 
@@ -229,16 +229,16 @@ AOP实现的关键在于代理模式，AOP代理主要分为静态代理和动�
 
 （1）AspectJ是静态代理的增强，所谓静态代理，就是AOP框架会在编译阶段生成AOP代理类，因此也称为编译时增强，他会在编译阶段将AspectJ(切面)织入到Java字节码中，运行的时候就是增强之后的AOP对象。
 
-（2）Spring AOP使用的动态代理，所谓的动态代理就是说AOP框架不会去修改字节码，而是每次运行时在内存中临时为方法生成一个AOP对象，这个AOP对象包含了目标对象的全部方法，并且在特定的切点做了增强处理，并回调原对象的方法。
+（2）Spring AOP使用的**动态代理**，所谓的动态代理就是说AOP框架不会去修改字节码，而是每次运行时在内存中临时为方法生成一个AOP对象，**这个AOP对象包含了目标对象的全部方法，并且在特定的切点做了增强处理，并回调原对象的方法**。
 
 #### JDK动态代理和CGLIB动态代理的区别
 
-Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理：
+Spring AOP中的动态代理主要有两种方式，**JDK动态代理**和**CGLIB动态代理**：
 
-- JDK动态代理只提供接口的代理，不支持类的代理。核心InvocationHandler接口和Proxy类，InvocationHandler 通过invoke()方法反射来调用目标类中的代码，动态地将横切逻辑和业务编织在一起；接着，Proxy利用 InvocationHandler动态创建一个符合某一接口的的实例,  生成目标类的代理对象。
-- 如果代理类没有实现 InvocationHandler 接口，那么Spring AOP会选择使用CGLIB来动态代理目标类。CGLIB（Code Generation Library），是一个代码生成的类库，可以在运行时动态的生成指定类的一个子类对象，并覆盖其中特定方法并添加增强代码，从而实现AOP。CGLIB是通过继承的方式做的动态代理，因此如果某个类被标记为final，那么它是无法使用CGLIB做动态代理的。
+- JDK动态代理**只提供接口的代理**，不支持类的代理。核心InvocationHandler接口和Proxy类，**InvocationHandler 通过invoke()方法反射来调用目标类中的代码**，动态地将横切逻辑和业务编织在一起；接着，**Proxy利用 InvocationHandler动态创建一个符合某一接口的的实例,  生成目标类的代理对象**。
+- 如果代理类没有实现 InvocationHandler 接口，那么Spring AOP会选择使用CGLIB来动态代理目标类。CGLIB（Code Generation Library），是一个代码生成的类库，可以**在运行时动态的生成指定类的一个子类对象，并覆盖其中特定方法并添加增强代码，从而实现AOP**。CGLIB是通过**继承**的方式做的动态代理，因此如果某个类被标记为final，那么它是无法使用CGLIB做动态代理的。
 
-静态代理与动态代理区别在于生成AOP代理对象的时机不同，相对来说AspectJ的静态代理方式具有更好的性能，但是AspectJ需要特定的编译器进行处理，而Spring AOP则无需特定的编译器处理。
+静态代理与动态代理区别在于**生成AOP代理对象的时机不同**，相对来说AspectJ的静态代理方式具有更好的性能，但是AspectJ需要特定的编译器进行处理，而Spring AOP则无需特定的编译器处理。
 
 > InvocationHandler 的 invoke(Object  proxy,Method  method,Object[] args)：proxy是最终生成的代理实例;  method 是被代理目标实例的某个具体方法;  args 是被代理目标实例某个方法的具体入参, 在方法反射调用时使用。
 
@@ -333,15 +333,15 @@ Spring对bean进行实例化；
 
 Spring将值和bean的引用注入到bean对应的属性中；
 
-如果bean实现了BeanNameAware接口，Spring将bean的ID传递给setBean-Name()方法；
+如果bean实现了BeanNameAware接口，Spring将bean的ID传递给setBeanName()方法；
 
 如果bean实现了BeanFactoryAware接口，Spring将调用setBeanFactory()方法，将BeanFactory容器实例传入；
 
 如果bean实现了ApplicationContextAware接口，Spring将调用setApplicationContext()方法，将bean所在的应用上下文的引用传入进来；
 
-如果bean实现了BeanPostProcessor接口，Spring将调用它们的post-ProcessBeforeInitialization()方法；
+如果bean实现了BeanPostProcessor接口，Spring将调用它们的postProcessBeforeInitialization()方法；
 
-如果bean实现了InitializingBean接口，Spring将调用它们的after-PropertiesSet()方法。类似地，如果bean使用initmethod声明了初始化方法，该方法也会被调用；
+如果bean实现了InitializingBean接口，Spring将调用它们的afterPropertiesSet()方法。类似地，如果bean使用initmethod声明了初始化方法，该方法也会被调用；
 
 此时，bean已经准备就绪，可以被应用程序使用了，它们将一直驻留在应用上下文中，直到该应用上下文被销毁；
 
@@ -353,11 +353,11 @@ Spring将值和bean的引用注入到bean对应的属性中；
 
 #### 使用@Autowired注解自动装配bean的过程是怎样的？
 
-使用@Autowired注解来自动装配指定的bean。在使用@Autowired注解之前需要在Spring配置文件进行配置`<context:annotation-config />`标签，然后在启动spring IoC时，容器就会自动装载了一个AutowiredAnnotationBeanPostProcessor后置处理器，当容器扫描到@Autowied、@Resource或@Inject时，就会在IoC容器自动查找需要的bean，并装配给该对象的属性。在使用@Autowired时，首先在容器中查询对应类型的bean：
+使用@Autowired注解来自动装配指定的bean。在使用@Autowired注解之前需要在Spring配置文件进行配置`<context:annotation-config />`标签，然后在启动spring IoC时，容器就会**自动装载了一个AutowiredAnnotationBeanPostProcessor后置处理器**，当容器扫描到**@Autowied**、**@Resource**或**@Inject**时，就会在IoC容器自动查找需要的bean，并装配给该对象的属性。在使用@Autowired时，首先在容器中查询对应类型的bean：
 
 - 如果查询结果刚好为一个，就将该bean装配给@Autowired指定的属性；
 
-- 如果查询的结果不止一个，会抛出异常，需要配合@Qualifier注解根据名称来查找；
+- 如果查询的结果不止一个，会抛出异常，需要配合**@Qualifier注解根据名称来查找**；
 
 - 如果配合@Qualifier注解根据名称来查找的结果为空，会抛出异常，可以将@Autowire注解的required属性设置为false。
 
@@ -369,7 +369,7 @@ Spring将值和bean的引用注入到bean对应的属性中；
 
 - @Autowired默认**按类型装配**（这个注解是属于spring的），@Resource 是JDK1.6支持的注解，**默认按照名称进行装配**
 
-- @Autowired默认情况下必须要求依赖对象必须存在，如果要允许null值，可以设置它的required属性为false，如：@Autowired(required=false) ，如果我们想使用名称装配可以结合@Qualifier注解进行使用
+- @Autowired**默认情况下必须要求依赖对象必须存在**，如果**要允许null值**，可以**设置它的required属性为false**，如：@Autowired(required=false) ，如果我们想使用名称装配可以结合@Qualifier注解进行使用
 
   ```java
   @Autowired
@@ -377,7 +377,7 @@ Spring将值和bean的引用注入到bean对应的属性中；
   private BaseDao baseDao;
   ```
 
-  Resource名称可以通过name属性进行指定，如果没有指定name属性，当注解写在字段上时，默认取字段名，按照名称查找，如果注解写在setter方法上默认取属性名进行装配。当找不到与名称匹配的bean时才按照类型进行装配。但是需要注意的是，如果name属性一旦指定，就只会按照名称进行装配。
+  Resource名称可以**通过name属性进行指定**，如果没有指定name属性，当注解写在字段上时，**默认取字段名**，按照名称查找，如果注解写在setter方法上默认取属性名进行装配。当找不到与名称匹配的bean时才按照类型进行装配。但是需要注意的是，如果name属性一旦指定，就只会按照名称进行装配。
 
   ```java
   @Resource(name="baseDao")
@@ -447,7 +447,7 @@ spring 有五大隔离级别，默认值为 ISOLATION_DEFAULT（使用数据库�
 - 为不同的事务API  如 JTA，JDBC，Hibernate，JPA 和JDO，提供一个不变的编程模式。
 - 为编程式事务管理提供了一套简单的API而不是一些复杂的事务API
 - 支持声明式事务管理。
-- 和Spring各种数据访问抽象层很好得集成。
+- 和Spring各种数据访问抽象层很好的集成。
 
 ### Spring MVC
 
