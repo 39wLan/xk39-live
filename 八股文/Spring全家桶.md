@@ -73,7 +73,7 @@ Spring 总共大约有 20 个模块， 由 1300 多个不同的文件构成。�
 
 ![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/Spring全家桶-0001.png)
 
-- spring core：提供了框架的基本组成部分，包括控制反转（Inversion of Control，IOC）和依赖注入（Dependency Injection，DI）功能。
+- spring core：提供了框架的基本组成部分，包括控制反转（Inversion of Control，IoC）和依赖注入（Dependency Injection，DI）功能。
 - spring beans：提供了BeanFactory，是工厂模式的一个经典实现，Spring将管理对象称为Bean。
 - spring context：构建于 core 封装包基础上的 context 封装包，提供了一种框架式的对象访问方法。
 - spring jdbc：提供了一个JDBC的抽象层，消除了烦琐的JDBC编码和数据库厂商特有的错误代码解析， 用于简化JDBC。
@@ -89,21 +89,21 @@ Spring 总共大约有 20 个模块， 由 1300 多个不同的文件构成。�
 4. 模板方法：用来解决代码重复的问题。比如：RestTemplate, JmsTemplate, JpaTemplate。
 5. 观察者模式：定义对象间一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都会得到通知被动更新，如Spring中listener的实现--ApplicationListener。
 
-### 控制反转(IOC)
+### 控制反转(IoC)
 
-#### @$什么是Spring IOC 容器？
+#### @$什么是Spring IoC 容器？
 
 控制反转即IoC (Inversion of Control)，它把传统上由程序代码直接操控的对象的调用权交给容器，通过容器来实现对象组件的装配和管理。所谓的“控制反转”概念就是对对象组件控制权的转移，从程序代码本身转移到了外部容器。
 
-Spring IOC 负责创建对象，管理对象（通过依赖注入（DI），装配对象，配置对象，并且管理这些对象的整个生命周期。)
+Spring IoC 负责创建对象，管理对象（通过依赖注入（DI），装配对象，配置对象，并且管理这些对象的整个生命周期。)
 
-#### @$控制反转(IOC)有什么作用
+#### @$控制反转(IoC)有什么作用
 
 - **管理对象的创建和依赖关系的维护**。对象的创建并不是一件简单的事，在对象关系比较复杂时，如果依赖关系需要程序猿来维护的话，那是相当头疼的
 - **解耦，由容器去维护具体的对象**
 - **托管了类的整个生命周期**，比如我们需要在类的产生过程中做一些处理，最直接的例子就是代理，如果有容器程序可以把这部分处理交给容器，应用程序则无需去关心类是如何完成代理的
 
-#### Spring IOC 的实现机制
+#### Spring IoC 的实现机制
 
 Spring 中的 IoC 的实现原理就是工厂模式加反射机制。
 
