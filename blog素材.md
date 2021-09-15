@@ -209,3 +209,13 @@ https://blog.csdn.net/admin_mvip/article/details/89327520
 >
 > - ![image-20210830173704530](https://gitee.com/xk39/typora-imgs/raw/master/imgs/image-20210830173704530.png)
 
+##### double和long的非原子性协定与局部变量表
+
+![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/double和long的非原子性协定与局部变量表-0000.png)
+
+![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/double和long的非原子性协定与局部变量表-0001.png)
+
+![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/double和long的非原子性协定与局部变量表-0002.png)
+
+![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/double和long的非原子性协定与局部变量表-0003.png)
+

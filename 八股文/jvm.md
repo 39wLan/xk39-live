@@ -1,5 +1,11 @@
 ### 来源 [面霸篇：JVM 21 问与答 (qq.com)](https://mp.weixin.qq.com/s/z69rzL_LvxRh5K96-F2Y4w)
 
+### 图片加载不出来的建议点开原图查看
+
+### 图片来源未知
+
+![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/jvm-0000.png)
+
 #### 1. 什么是JVM内存结构？
 
 ![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/jvm-0001.png)
