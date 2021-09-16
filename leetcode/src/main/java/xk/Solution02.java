@@ -19,6 +19,7 @@ public class Solution02 {
     }
     
     
+    
     int[][] isScrambleOne;
     int[][] isScrambleTwo;
     char[] isScrambleStr1;
