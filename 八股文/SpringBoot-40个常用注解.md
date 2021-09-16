@@ -36,7 +36,7 @@
 
 #### @GetMapping
 
-**@GetMapping **注解用于处理HTTP GET请求，并将请求映射到具体的处理方法中。具体来说，@GetMapping是一个组合注解，它相当于是 **@RequestMapping(method=RequestMethod.GET)** 的快捷方式。
+**@GetMapping** 注解用于处理HTTP GET请求，并将请求映射到具体的处理方法中。具体来说，@GetMapping是一个组合注解，它相当于是 **@RequestMapping(method=RequestMethod.GET)** 的快捷方式。
 
 下面是 **@GetMapping** 的一个使用示例：
 
@@ -106,7 +106,7 @@
 
 **@ResponseStatus** 注解可以标注请求处理方法。使用此注解，可以指定响应所需要的HTTP STATUS。特别地，我们可以使用HttpStauts类对该注解的value属性进行赋值。
 
-下面是使用**@ResponseStatus** 注解的一个示例：
+下面是使用 **@ResponseStatus** 注解的一个示例：
 
 ![](https://gitee.com/xk39/typora-imgs/raw/master/imgs/SpringBoot注解-0011.png)
 
