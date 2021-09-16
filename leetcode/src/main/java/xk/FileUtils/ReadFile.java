@@ -2,17 +2,15 @@ package xk.FileUtils;
 
 import ws.schild.jave.MultimediaObject;
 import ws.schild.jave.info.MultimediaInfo;
-import ws.schild.jave.info.VideoInfo;
 
 import java.io.File;
-import java.nio.file.Files;
 
 import static xk.FileUtils.DirList.getList;
 
 public class ReadFile {
     public static void main(String[] args) {
-        String folder="D:\\Spring全家桶";
-        String partten=".*mp4$";
+        String folder="D:\\BaiduYunDownload\\iHRM";
+        String partten=".*(avi|wmv|mp4)$";
         long sumTime=0;
         for (File f:getList(folder,partten)){
             long temp=getVideoInfo(f);
