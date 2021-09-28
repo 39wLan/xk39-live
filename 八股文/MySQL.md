@@ -1,4 +1,4 @@
-### 来源 [快问快答，MySQL面试夺命20问 (qq.com)](https://mp.weixin.qq.com/s/aiD91w3ez48o-SiOAOSK-A)
+### @来源 [快问快答，MySQL面试夺命20问 (qq.com)](https://mp.weixin.qq.com/s/aiD91w3ez48o-SiOAOSK-A)
 
 ### 数据库架构
 

@@ -1,4 +1,4 @@
-### 来源 [《面试八股文》之 Redis 16卷 (qq.com)](https://mp.weixin.qq.com/s/SbWlw7XyKNtrwi_syk1eaQ)
+### @来源 [《面试八股文》之 Redis 16卷 (qq.com)](https://mp.weixin.qq.com/s/SbWlw7XyKNtrwi_syk1eaQ)
 
 ### 1.什么是 Redis？它能做什么？
 

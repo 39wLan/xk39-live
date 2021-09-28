@@ -1,4 +1,4 @@
-### 来源 [超经典的 25 道 MyBatis 面试题！ (qq.com)](https://mp.weixin.qq.com/s?__biz=MzU3MDAzNDg1MA==&mid=2247490281&idx=1&sn=e7ca5b168fcf4a4cad94125ce5a6b1ef&chksm=fcf4c524cb834c32adfe455db52b2f5497736ca1f00c7a166836a4aedaefd5e97576f08d1c02&scene=178&cur_album_id=1500819225232343046#rd)
+### @来源 [超经典的 25 道 MyBatis 面试题！ (qq.com)](https://mp.weixin.qq.com/s?__biz=MzU3MDAzNDg1MA==&mid=2247490281&idx=1&sn=e7ca5b168fcf4a4cad94125ce5a6b1ef&chksm=fcf4c524cb834c32adfe455db52b2f5497736ca1f00c7a166836a4aedaefd5e97576f08d1c02&scene=178&cur_album_id=1500819225232343046#rd)
 
 #### 什么是 Mybatis？
 

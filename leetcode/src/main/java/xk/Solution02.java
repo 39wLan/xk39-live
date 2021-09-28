@@ -9,15 +9,24 @@ public class Solution02 {
     
     @Test
     public void myTest(){
-        HashMap<Integer, Integer> map = new HashMap<>();
-        map.put(null,10);
-        System.out.println(map.get(null));
-        System.out.println(map.get(0));
-        map.put(0,20);
-        System.out.println(map.get(null));
-        System.out.println(map.get(0));
+        singleDog();
     }
-    
+    public void singleDog(){
+        for (int i = 0; i <= 12; i++) {
+            for (int j = 0; j < 60; j++) {
+                isSingleDog(i*100+j);
+            }
+        }
+    }
+    public void isSingleDog(int i){
+        int a=i/1000;
+        int b=(i/100)%10;
+        int c=(i/10)%10;
+        int d=i%10;
+        if((a==b&&b==c)||(b==c&&c==d)){
+            System.out.println(String.format("%04d", i));
+        }
+    }
     
     
     int[][] isScrambleOne;

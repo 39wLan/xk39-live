@@ -1,4 +1,4 @@
-### 来源 [Java基础八股文背诵版v0.2 (qq.com)](https://mp.weixin.qq.com/s/-Xf_GnQAPmy3MIN13zffVQ)
+### @来源 [Java基础八股文背诵版v0.2 (qq.com)](https://mp.weixin.qq.com/s/-Xf_GnQAPmy3MIN13zffVQ)
 
 #### Java语言具有哪些特点？
 
