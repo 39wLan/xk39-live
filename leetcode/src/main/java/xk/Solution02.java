@@ -9,8 +9,278 @@ public class Solution02 {
     
     @Test
     public void myTest(){
-        singleDog();
+        
+        test01();
+        
+        System.out.println("ansList.toString() = " + ansList.toString());
+        System.out.println("ansList.size() = " + ansList.size());
     }
+    
+    HashSet<Integer> ansList=new HashSet<>();
+    public void test01(){
+        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        HashSet<Integer> set = new HashSet<>();
+        ArrayList<Integer> listA = new ArrayList<>();
+        set.add(1);
+        listA.add(1);
+        for (int i = 1; i < nums.length; i++) {
+            listA.add(nums[i]);
+            set.add(nums[i]);
+            for (int j = i+1; j < nums.length; j++) {
+                listA.add(nums[j]);
+                set.add(nums[j]);
+                getList(nums,set,listA);
+                listA.remove(2);
+                set.remove(nums[j]);
+            }
+            listA.remove(1);
+            set.remove(nums[i]);
+        }
+        for (Integer integer : ansList) {
+            System.out.println(integer);
+        }
+    }
+    
+    public void getList(int[] nums,HashSet<Integer> set,List<Integer> listA){
+        ArrayList<Integer> listCur = new ArrayList<>();
+        for (int i = 1; i < nums.length; i++) {
+            if(set.contains(nums[i])){
+                continue;
+            }
+            listCur.add(nums[i]);
+            set.add(nums[i]);
+            for (int j = i+1; j < nums.length; j++) {
+                if(set.contains(nums[j])){
+                    continue;
+                }
+                listCur.add(nums[j]);
+                set.add(nums[j]);
+                for (int k = j+1; k < nums.length; k++) {
+                    if(set.contains(nums[k])){
+                        continue;
+                    }
+                    listCur.add(nums[k]);
+                    set.add(nums[k]);
+                    getList(nums,set,listA,listCur);
+                    
+                    listCur.remove(2);
+                    set.remove(nums[k]);
+                }
+                listCur.remove(1);
+                set.remove(nums[j]);
+            }
+            listCur.remove(0);
+            set.remove(nums[i]);
+        }
+    }
+    
+    public void getList(int[] nums,HashSet<Integer> set,List<Integer> listA,List<Integer> listB){
+        ArrayList<Integer> listCur = new ArrayList<>();
+        for (int i = 1; i < nums.length; i++) {
+            if(set.contains(nums[i])){
+                continue;
+            }
+            listCur.add(nums[i]);
+            set.add(nums[i]);
+            for (int j = i+1; j < nums.length; j++) {
+                if(set.contains(nums[j])){
+                    continue;
+                }
+                listCur.add(nums[j]);
+                set.add(nums[j]);
+                for (int k = j+1; k < nums.length; k++) {
+                    if(set.contains(nums[k])){
+                        continue;
+                    }
+                    listCur.add(nums[k]);
+                    set.add(nums[k]);
+                    cout(listA,listB,listCur);
+                
+                    listCur.remove(2);
+                    set.remove(nums[k]);
+                }
+                listCur.remove(1);
+                set.remove(nums[j]);
+            }
+            listCur.remove(0);
+            set.remove(nums[i]);
+        }
+    }
+    
+    public void cout(List<Integer> listA,List<Integer> listB,List<Integer> listC){
+        int a=0,b=0,c=0;
+        for (Integer integer : listA) {
+            a=a*10+integer;
+        }
+        for (Integer integer : listB) {
+            b=b*10+integer;
+        }
+        for (Integer integer : listC) {
+            c=c*10+integer;
+        }
+        ansList.add(1000000*a+1000*b+c);
+        ansList.add(1000000*b+1000*c+a);
+        ansList.add(1000000*c+1000*a+b);
+        ansList.add(1000000*a+1000*c+b);
+        ansList.add(1000000*b+1000*a+c);
+        ansList.add(1000000*c+1000*b+a);
+    }
+    
+    
+    
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        int[] nums1 = new int[nums.length];
+        Arrays.sort(nums);
+        int zeroStar=-1,zeroEnd=-1,split=-1;
+        int len=0;
+        for (int i = 0; i < nums.length; i++) {
+            set.add(nums[i]);
+            if(zeroStar==-1&&nums[i]==0){
+                zeroStar=i;
+            }
+            if(zeroStar!=-1&&nums[i]==0){
+                zeroEnd=i;
+                continue;
+            }
+            if(i>1&&nums[i]==nums[i-1]&&nums[i]==nums[i-2]){
+                continue;
+            }
+            nums1[len]=nums[i];
+            if(len>0&&nums1[len]>0&&nums1[len-1]<0){
+                split=len;
+            }
+            len++;
+        }
+        List<List<Integer>> ans = new ArrayList<>();
+        if(zeroEnd-zeroStar>1){
+            ans.add(Arrays.asList(0,0,0));
+        }
+        System.out.print(split);
+        if (split!=-1){
+            threeSumHelp(ans,0,split,nums1,set,false);
+            threeSumHelp(ans,split,len,nums1,set,false);
+            if(zeroStar!=-1){
+                threeSumHelp(ans,0,split,nums1,set,true);
+            }
+        }
+        return ans;
+    }
+    
+    public void threeSumHelp(List<List<Integer>> ans,int start,int end,int[] nums,Set<Integer> set,boolean bo){
+        if(bo==false){
+            for (int i = start; i < end; i++) {
+                for (int j = i+1; j < end; j++) {
+                    int z=-(nums[i]+nums[j]);
+                    if(set.contains(z)){
+                        ans.add(Arrays.asList(nums[i],nums[j],z));
+                    }
+                }
+            }
+        }
+        if(bo==true){
+            if(set.contains(-nums[0])){
+                ans.add(Arrays.asList(nums[0],0,-nums[0]));
+            }
+            for (int i = 1; i < end; i++) {
+                if(nums[i]!=nums[i-1]){
+                    int z=-(nums[i]);
+                    if(set.contains(z)){
+                        ans.add(Arrays.asList(nums[i],0,z));
+                    }
+                }
+                
+            }
+        }
+    }
+
+    
+    public int maxProduct(String[] words) {
+        int[] index=new int[words.length];
+        int max=0;
+        for (int i = 0; i < index.length; i++) {
+            index[i]=maxProductHelp(words[i]);
+            for (int i1 = 0; i1 < i; i1++) {
+                if((index[i]&index[i1])==0){
+                    max=Math.max(words[i].length()*words[i1].length(),max);
+                }
+            }
+        }
+        return max;
+    }
+    
+    public int maxProductHelp(String s){
+        int ans=0;
+        char[] chars = s.toCharArray();
+        for (char aChar : chars) {
+            int i = aChar - 'a';
+            ans|=1<<(i+1);
+        }
+        return ans;
+    }
+    
+    public int singleNumber(int[] nums) {
+        int a=0,b=0;
+        for (int num : nums) {
+            b=~a&(b^num);
+            a=~b&(a^num);
+        }
+        return b;
+    }
+    
+    
+    public String addBinary(String a, String b) {
+        if(a.length()<b.length()){
+            return addBinary(b,a);
+        }
+        char[] aChars = a.toCharArray();
+        char[] bChars = b.toCharArray();
+        int len=a.length()+1;
+        char[] ans = new char[len];
+        int al=a.length()-1;
+        int bl=b.length()-1;
+        int tag=0;
+        for (int i = len-1; i >= 0; i--) {
+            int cur=tag;
+            if(al>=0){
+                cur+=aChars[al]-'0';
+                al--;
+            }
+            if(bl>=0){
+                cur+=bChars[bl]-'0';
+                bl--;
+            }
+            tag=cur/2;
+            cur=cur%2;
+            ans[i]=(char) ('0'+cur);
+        }
+        StringBuffer buffer = new StringBuffer();
+        if(ans[0]=='0'){
+            buffer.append(ans,1,len-1);
+        }else {
+            buffer.append(ans);
+        }
+        return buffer.toString();
+    }
+    
+    public int[] countBits(int n) {
+        int[] ans=new int[n+1];
+        if(n==0){
+            return ans;
+        }
+        ans[1]=1;
+        int left=1,right=left*2;
+        for (int i = 2; i <= n ; i++) {
+            if(i==right){
+                left=right;
+                right=left*2;
+            }
+            ans[i]=ans[i-left]+1;
+        }
+        return ans;
+    }
+    
+    
     public void singleDog(){
         for (int i = 0; i <= 12; i++) {
             for (int j = 0; j < 60; j++) {
