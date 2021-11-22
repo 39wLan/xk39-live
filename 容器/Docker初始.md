@@ -478,3 +478,206 @@ nginx
 
 > docker update --restart=always c_rabbitmq
 
+### 部署FastDFS
+
+1. 搜索fastdfs镜像
+
+> docker search fastdfs
+
+2. 拉取fastdfs镜像
+
+> docker pull season/fastdfs
+
+3. 创建目录
+
+> mkdir ~/fastdfs
+> cd ~/fastdfs
+
+4. 开放防火墙
+
+> firewall-cmd --zone=public --add-port=8888/tcp --permanent
+> firewall-cmd --zone=public --add-port=22122/tcp --permanent
+> firewall-cmd --zone=public --add-port=23000/tcp --permanent
+> firewall-cmd --reload
+
+5. 使用docker镜像构建tracker容器（跟踪服务器，起到调度的作用）
+
+> docker run -id --name c_fastdfs_tracker \
+> -v $PWD/tracker/data:/fastdfs/tracker/data \
+> --net=host \
+> season/fastdfs tracker
+
+6. 使用docker镜像构建storage容器（存储服务器，提供容量和备份服务，以下IP地址为虚拟机地址）
+
+> docker run -id --name c_fastdfs_storage \
+> -v $PWD/storage/data:/fastdfs/storage/data \
+> -v $PWD/store_path:/fastdfs/store_path \
+> --net=host \
+> -e TRACKER_SERVER:192.168.222.128:22122 \
+> -e GROUP_NAME=group1 \
+> season/fastdfs storage
+
+7. 拷贝配置文件
+
+> docker cp c_fastdfs_storage:/fdfs_conf/. ~/fastdfs/conf/
+> cd conf
+
+8. 修改对应配置
+
+> vi tracker.conf
+> bind_addr=192.168.222.128
+>
+> vi storage.conf
+> tracker_server=192.168.222.128:22122
+>
+> vi client.conf
+> tracker_server=192.168.222.128:22122
+
+9. 还原配置文件
+
+> docker cp ~/fastdfs/conf/. c_fastdfs_storage:/fdfs_conf/
+> cd ..
+
+10. 重启storage服务
+
+> docker restart c_fastdfs_storage
+
+11. 在docker模拟客户端上传文件到storage容器
+
+> docker run -tid --name c_fastdfs_sh \
+> --net=host \
+> season/fastdfs sh
+
+> docker cp ~/fastdfs/conf/storage.conf c_fastdfs_sh:/fdfs_conf/
+
+> docker exec -it c_fastdfs_sh /bin/bash
+
+> root@localhost:/# ls
+> FastDFS_v4.08  bin   dev            etc      fdfs_conf  lib    lib64            media  opt   root  sbin     srv  tmp  var
+> a.txt          boot  entrypoint.sh  fastdfs  home       lib32  libevent-2.0.14  mnt    proc  run   selinux  sys  usr
+> root@localhost:/# cd fdfs_conf/
+> root@localhost:/fdfs_conf# echo "hello,world" > a.txt
+> root@localhost:/fdfs_conf# fdfs_upload_file storage.conf a.txt
+> group1/M00/00/00/wKjegGELqT-AX5oxAAAADLMSuiI089.txt
+
+12. 停止并卸载
+
+> docker stop c_fastdfs_sh c_fastdfs_storage c_fastdfs_tracker
+> docker rm c_fastdfs_sh c_fastdfs_storage c_fastdfs_tracker
+> docker rmi season/fastdfs
+> rm -rf ~/fastdfs
+
+## Dockerfile 快速入门
+
+简介：Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。
+
+### 指令
+
+#### FROM
+
+#### 指定父镜像
+
+指定dockerfile基于那个image构建
+
+#### MAINTAINER
+
+#### 作者信息
+
+用来标明这个dockerfile谁写的
+
+#### LABEL
+
+#### 标签
+
+用来标明dockerfile的标签 可以使用Label代替Maintainer 最终都是在docker image基本信息中可以查看
+
+#### RUN	
+
+#### 执行命令
+
+执行一段命令 默认是/bin/sh 格式: RUN command 或者 RUN [“command” , “param1”,“param2”]
+
+#### CMD
+
+#### 容器启动命令
+
+提供启动容器时候的默认命令 和ENTRYPOINT配合使用.格式 CMD command param1 param2 或者 CMD [“command” , “param1”,“param2”]
+
+#### ENTRYPOINT
+
+#### 入口
+
+一般在制作一些执行就关闭的容器中会使用
+
+#### COPY
+
+#### 复制文件
+
+build的时候复制文件到image中
+
+#### ADD
+
+#### 添加文件
+
+build的时候添加文件到image中 不仅仅局限于当前build上下文 可以来源于远程服务
+
+#### ENV
+
+#### 环境变量
+
+指定build时候的环境变量 可以在启动的容器的时候 通过-e覆盖 格式ENV name=value
+
+#### ARG
+
+#### 构建参数
+
+构建参数 只在构建的时候使用的参数 如果有ENV 那么ENV的相同名字的值始终覆盖arg的参数
+
+#### VOLUME
+
+#### 定义外部可以挂载的数据卷
+
+指定build的image那些目录可以启动的时候挂载到文件系统中 启动容器的时候使用 -v 绑定 格式 VOLUME [“目录”]
+
+#### EXPOSE
+
+#### 暴露端口
+
+定义容器运行的时候监听的端口 启动容器的使用-p来绑定暴露端口 格式: EXPOSE 8080 或者 EXPOSE 8080/udp
+
+#### WORKDIR
+
+#### 工作目录
+
+指定容器内部的工作目录 如果没有创建则自动创建 如果指定/ 使用的是绝对地址 如果不是/开头那么是在上一条workdir的路径的相对路径
+
+#### USER
+
+#### 指定执行用户
+
+指定build或者启动的时候 用户 在RUN CMD ENTRYPONT执行的时候的用户
+
+#### HEALTHCHECK
+
+#### 健康检查
+
+指定监测当前容器的健康监测的命令 基本上没用 因为很多时候 应用本身有健康监测机制
+
+#### ONBUILD
+
+#### 触发器
+
+当存在ONBUILD关键字的镜像作为基础镜像的时候 当执行FROM完成之后 会执行 ONBUILD的命令 但是不影响当前镜像 用处也不怎么大
+
+#### STOPSIGNAL
+
+#### 发送信号量到宿主机
+
+该STOPSIGNAL指令设置将发送到容器的系统调用信号以退出。
+
+#### SHELL
+
+#### 指定执行脚本的shell
+
+指定RUN CMD ENTRYPOINT 执行命令的时候 使用的shell
+
